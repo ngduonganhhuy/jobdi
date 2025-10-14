@@ -1,13 +1,15 @@
-import 'dart:math' show pi;
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/extensions/color_extension.dart';
 import 'package:jobdi/core/impl/base_page.dart' show BasePage;
 import 'package:jobdi/core/themes/app_colors.dart' show appScheme;
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/domain/entities/onboarding_content.dart'
     show OnboardingContent;
+import 'package:jobdi/presentation/pages/onboarding/widgets/onboarding_next_button.dart'
+    show OnboardingNextButton;
 import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
+import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/gap.dart';
 
 class OnboardingPage extends StatefulWidget implements BasePage {
@@ -81,15 +83,24 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           page.image,
                           fit: BoxFit.cover,
                         ),
+                        const Gap(28),
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 275.w),
+                          child: SemiBoldText(
+                            page.title,
+                            fontSize: 24,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                         const Gap(30),
                       ],
                     );
                   },
                 ),
               ),
-              const SizedBox(height: 20),
+
               _buildIndicator(),
-              const SizedBox(height: 40),
+              const Gap(24),
             ],
           ),
         ),
@@ -99,98 +110,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget _buildIndicator() {
     return OnboardingNextButton(
-      onPressed: () {},
-      currentPage: 2,
-      totalPages: 3,
+      onPressed: _onNextPressed,
+      currentPage: _currentIndex + 1,
+      totalPages: _pages.length,
     );
   }
-}
-
-class OnboardingNextButton extends StatelessWidget {
-  const OnboardingNextButton({
-    required this.currentPage,
-    required this.totalPages,
-    required this.onPressed,
-    super.key,
-  });
-  final int currentPage;
-  final int totalPages;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _SegmentedCirclePainter(
-        totalSegments: totalPages,
-        activeSegments: currentPage,
-      ),
-      child: InkWell(
-        onTap: onPressed,
-        customBorder: const CircleBorder(),
-        child: Container(
-          width: 80,
-          height: 80,
-          decoration: const BoxDecoration(
-            color: Colors.black,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 8,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: const Icon(Icons.arrow_forward, color: Colors.white, size: 32),
-        ),
-      ),
-    );
-  }
-}
-
-class _SegmentedCirclePainter extends CustomPainter {
-  _SegmentedCirclePainter({
-    required this.totalSegments,
-    required this.activeSegments,
-  });
-  final int totalSegments;
-  final int activeSegments;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    const strokeWidth = 8.0;
-    const gap = 0.25;
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = (size.width / 2) + 10;
-    final segmentAngle = (2 * pi - (gap * totalSegments)) / totalSegments;
-
-    final bgPaint = Paint()
-      ..color = Colors.grey.shade300
-      ..strokeWidth = strokeWidth
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    final fgPaint = Paint()
-      ..color = Colors.pinkAccent
-      ..strokeWidth = strokeWidth
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    var startAngle = -pi / 2;
-
-    for (var i = 0; i < totalSegments; i++) {
-      final paint = i < activeSegments ? fgPaint : bgPaint;
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        startAngle,
-        segmentAngle,
-        false,
-        paint,
-      );
-      startAngle += segmentAngle + gap;
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

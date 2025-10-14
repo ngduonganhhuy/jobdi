@@ -35,7 +35,7 @@ void registerErrorHandlers() {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: const Text('Holmes: 😡😡'),
+        title: const Text('Jobdi sorry: 😡😡'),
       ),
       body: Text(details.toString()).center,
     );

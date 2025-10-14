@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/constants/constants.dart';
 
-final roboto = RobotoTextStyle();
+final lexendDeca = LexendDecaTextStyle();
 final appFont = AppTextStyles();
 
 typedef TextStylesParams =
@@ -13,7 +13,7 @@ typedef TextStylesParams =
       double? fontSize,
     });
 
-class RobotoTextStyle extends AppTextStyles {
+class LexendDecaTextStyle extends AppTextStyles {
   @override
   TextStylesParams get useFont =>
       ({
@@ -41,7 +41,7 @@ class AppTextStyles {
         FontWeight? fontWeight,
         Color? color,
         double? fontSize,
-      }) => roboto.useFont(
+      }) => lexendDeca.useFont(
         lineHeight: lineHeight,
         fontWeight: fontWeight,
         color: color,

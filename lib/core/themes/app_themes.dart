@@ -15,11 +15,15 @@ enum AppTheme {
 
 final Map<AppTheme, AppColors> appColorsData = {
   AppTheme.Pink: AppColors(
-    primaryColor: Colors.pinkAccent,
+    primaryColor: const Color(0xFFF74169),
     white: Colors.white,
+    black: Colors.black,
+    gray200: const Color(0xFFD6D7D8),
   ),
   AppTheme.Green: AppColors(
     primaryColor: Colors.greenAccent,
     white: Colors.white,
+    black: Colors.black,
+    gray200: const Color(0xFFD6D7D8),
   ),
 };

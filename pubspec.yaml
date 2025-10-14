@@ -45,3 +45,33 @@ flutter:
     - assets/png/
     - assets/svg/
     - assets/fonts/
+
+  fonts:
+    - family: LexendDeca
+      fonts:
+        - asset: assets/fonts/LexendDeca/LexendDeca-Thin.ttf
+          weight: 100
+
+        - asset: assets/fonts/LexendDeca/LexendDeca-ExtraLight.ttf
+          weight: 200
+
+        - asset: assets/fonts/LexendDeca/LexendDeca-Light.ttf
+          weight: 300
+
+        - asset: assets/fonts/LexendDeca/LexendDeca-Regular.ttf
+          weight: 400
+
+        - asset: assets/fonts/LexendDeca/LexendDeca-Medium.ttf
+          weight: 500
+
+        - asset: assets/fonts/LexendDeca/LexendDeca-SemiBold.ttf
+          weight: 600
+
+        - asset: assets/fonts/LexendDeca/LexendDeca-Bold.ttf
+          weight: 700
+
+        - asset: assets/fonts/LexendDeca/LexendDeca-ExtraBold.ttf
+          weight: 800
+
+        - asset: assets/fonts/LexendDeca/LexendDeca-Black.ttf
+          weight: 900
