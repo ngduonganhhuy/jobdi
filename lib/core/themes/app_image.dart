@@ -16,4 +16,6 @@ class SVGAsset {
   static const String logo = '${folderName}logo.svg';
   static const String icon_close = '${folderName}icon_close.svg';
   static const String icon_arrow_left = '${folderName}icon_arrow_left.svg';
+  static const String vietnam = '${folderName}vietnam.svg';
+  static const String error = '${folderName}error.svg';
 }

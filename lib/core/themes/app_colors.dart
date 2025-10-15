@@ -19,6 +19,14 @@ class AppColors {
     required this.gray200,
     required this.gray900,
     required this.gray500,
+    required this.gray100,
+    required this.gray400,
+    required this.gray25,
+    required this.blue500,
+    required this.red300,
+    required this.red50,
+    required this.red500,
+    required this.gray300,
   });
 
   final Color primaryColor;
@@ -27,4 +35,12 @@ class AppColors {
   final Color gray200;
   final Color gray900;
   final Color gray500;
+  final Color gray300;
+  final Color gray100;
+  final Color gray400;
+  final Color gray25;
+  final Color blue500;
+  final Color red300;
+  final Color red50;
+  final Color red500;
 }

@@ -105,6 +105,12 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Nhập số điện thoại của anh/chị.'**
   String get descSignIn;
+
+  /// No description provided for @phone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số điện thoại'**
+  String get phone;
 }
 
 class _AppLocalizationsDelegate

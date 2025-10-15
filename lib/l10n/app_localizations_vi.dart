@@ -13,4 +13,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get descSignIn => 'Nhập số điện thoại của anh/chị.';
+
+  @override
+  String get phone => 'Số điện thoại';
 }

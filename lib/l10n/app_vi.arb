@@ -1,5 +1,6 @@
-  {
-    "@@locale": "vi",
-    "signIn": "Đăng nhập",
-    "descSignIn":"Nhập số điện thoại của anh/chị."
-  }
+{
+  "@@locale": "vi",
+  "signIn": "Đăng nhập",
+  "descSignIn": "Nhập số điện thoại của anh/chị.",
+  "phone": "Số điện thoại"
+}
