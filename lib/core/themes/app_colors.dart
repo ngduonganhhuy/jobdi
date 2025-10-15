@@ -17,10 +17,14 @@ class AppColors {
     required this.white,
     required this.black,
     required this.gray200,
+    required this.gray900,
+    required this.gray500,
   });
 
   final Color primaryColor;
   final Color white;
   final Color black;
   final Color gray200;
+  final Color gray900;
+  final Color gray500;
 }

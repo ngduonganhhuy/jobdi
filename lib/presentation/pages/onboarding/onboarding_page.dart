@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/extensions/color_extension.dart';
 import 'package:jobdi/core/impl/base_page.dart' show BasePage;
+import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
 import 'package:jobdi/core/themes/app_colors.dart' show appScheme;
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/domain/entities/onboarding_content.dart'
@@ -47,7 +48,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-    } else {}
+    } else {
+      await NavigatorService.goToLoginPage(context);
+    }
   }
 
   @override

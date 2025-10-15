@@ -19,11 +19,15 @@ final Map<AppTheme, AppColors> appColorsData = {
     white: Colors.white,
     black: Colors.black,
     gray200: const Color(0xFFD6D7D8),
+    gray900: const Color(0xFF161617),
+    gray500: const Color(0xFF737374),
   ),
   AppTheme.Green: AppColors(
     primaryColor: Colors.greenAccent,
     white: Colors.white,
     black: Colors.black,
     gray200: const Color(0xFFD6D7D8),
+    gray900: const Color(0xFF161617),
+    gray500: const Color(0xFF737374),
   ),
 };

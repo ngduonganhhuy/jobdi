@@ -4,12 +4,34 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:jobdi/core/constants/constants.dart';
 import 'package:jobdi/core/utils/injection.dart';
+import 'package:jobdi/core/utils/storage_util.dart';
 import 'package:jobdi/core_bloc/theme/theme_bloc.dart';
 import 'package:jobdi/l10n/app_localizations.dart' show AppLocalizations;
+import 'package:jobdi/presentation/pages/auth/login_page.dart';
 import 'package:jobdi/presentation/pages/onboarding/onboarding_page.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isFirstLaunch = false;
+
+  @override
+  void initState() {
+    _initFirstLaunch();
+    super.initState();
+  }
+
+  void _initFirstLaunch() {
+    _isFirstLaunch = StorageUtil.getBool(StorageKey.FIRST_LAUNCH) ?? true;
+    if (_isFirstLaunch) {
+      StorageUtil.putBool(StorageKey.FIRST_LAUNCH, data: false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +75,7 @@ class MyApp extends StatelessWidget {
           },
         );
       },
-      child: const OnboardingPage(),
+      child: _isFirstLaunch ? const OnboardingPage() : const LoginPage(),
     );
   }
 }

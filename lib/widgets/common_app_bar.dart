@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart' show REdgeInsets;
 import 'package:jobdi/core/services/navigation_service/navigator_service.dart'
     show NavigatorService;
+import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart' show SVGAsset;
 import 'package:jobdi/widgets/app_svg_images.dart' show AppSvgImage;
 import 'package:jobdi/widgets/app_text.dart';
@@ -98,8 +99,9 @@ class _CommonAppBarState extends State<CommonAppBar> {
     centerTitle: true,
     actions: widget.actions,
     flexibleSpace: Container(
+      color: appScheme.primaryColor,
       height: kToolbarHeight,
-      padding: REdgeInsets.all(8),
+      padding: REdgeInsets.only(top: 12),
       child: Row(
         mainAxisAlignment: Navigator.canPop(context)
             ? MainAxisAlignment.start
@@ -128,6 +130,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
               textAlign: TextAlign.center,
               fontSize: 18,
               maxLines: 1,
+              color: appScheme.white,
             ),
           ),
           if (widget.isShowLeading)

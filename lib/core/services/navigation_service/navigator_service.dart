@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jobdi/core/impl/base_page.dart';
-import 'package:jobdi/core/utils/device_utils.dart';
 import 'package:jobdi/core/utils/utils.dart';
+import 'package:jobdi/presentation/pages/auth/login_page.dart';
 import 'package:jobdi/presentation/pages/home/home_page.dart';
 
 class NavigatorService {
@@ -15,15 +15,10 @@ class NavigatorService {
     T? resultForReplace,
   }) async {
     Utils.closeKeyboard(context);
-    final newRoute = FormFactor.isDesktop || FormFactor.isDesktopDevice
-        ? PageRouteBuilder<T>(
-            pageBuilder: (BuildContext context, _, _) => screen,
-            settings: RouteSettings(name: screen.screenName),
-          )
-        : MaterialPageRoute<T>(
-            builder: (context) => screen,
-            settings: RouteSettings(name: screen.screenName),
-          );
+    final newRoute = MaterialPageRoute<T>(
+      builder: (context) => screen,
+      settings: RouteSettings(name: screen.screenName),
+    );
     if (clearToHome) {
       return Navigator.of(
         context,
@@ -70,5 +65,12 @@ class NavigatorService {
     BuildContext context,
   ) async {
     return _goTo<T>(context, const HomePage());
+  }
+
+  static Future<T?> goToLoginPage<T extends Object?>(
+    BuildContext context, {
+    bool clearStack = true,
+  }) async {
+    return _goTo<T>(context, const LoginPage(), clearStack: clearStack);
   }
 }

@@ -93,6 +93,18 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('vi')];
+
+  /// No description provided for @signIn.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đăng nhập'**
+  String get signIn;
+
+  /// No description provided for @descSignIn.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhập số điện thoại của anh/chị.'**
+  String get descSignIn;
 }
 
 class _AppLocalizationsDelegate
