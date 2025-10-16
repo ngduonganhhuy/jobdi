@@ -16,4 +16,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get phone => 'Số điện thoại';
+
+  @override
+  String get notRegisterYet => 'Chưa có tài khoản?';
+
+  @override
+  String get signUp => 'Đăng ký';
 }

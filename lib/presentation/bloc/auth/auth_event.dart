@@ -1,17 +1,19 @@
-part of 'auth_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-sealed class AuthEvent extends Equatable {
-  const AuthEvent();
+part 'auth_event.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
+@freezed
+class AuthEvent with _$AuthEvent {
+  const factory AuthEvent.signInRequested({
+    required String username,
+    required String password,
+  }) = AuthSignInRequested;
 
-final class AuthSignInRequested extends AuthEvent {
-  const AuthSignInRequested(this.username, this.password);
-  final String username;
-  final String password;
+  const factory AuthEvent.otpValidatorFailed() = OTPValidatorFailed;
 
-   @override
-  List<Object> get props => [username, password];
+  const factory AuthEvent.checkShowNotificationIfNeeded() =
+      CheckShowNotificationIfNeeded;
+
+  const factory AuthEvent.updateSecondRemaingToWait(int second) =
+      UpdateSecondRemaingToWait;
 }

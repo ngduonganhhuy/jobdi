@@ -111,6 +111,18 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Số điện thoại'**
   String get phone;
+
+  /// No description provided for @notRegisterYet.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có tài khoản?'**
+  String get notRegisterYet;
+
+  /// No description provided for @signUp.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đăng ký'**
+  String get signUp;
 }
 
 class _AppLocalizationsDelegate

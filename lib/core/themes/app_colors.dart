@@ -27,6 +27,9 @@ class AppColors {
     required this.red50,
     required this.red500,
     required this.gray300,
+    required this.blue400,
+    required this.gray700,
+    required this.gray50,
   });
 
   final Color primaryColor;
@@ -39,8 +42,11 @@ class AppColors {
   final Color gray100;
   final Color gray400;
   final Color gray25;
+  final Color gray50;
   final Color blue500;
   final Color red300;
   final Color red50;
   final Color red500;
+  final Color blue400;
+  final Color gray700;
 }

@@ -9,28 +9,31 @@ import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core/themes/app_text_styles.dart';
 import 'package:jobdi/dialogs/picker/selected_country_phone_picker.dart';
 import 'package:jobdi/domain/entities/country_entity.dart';
-import 'package:jobdi/lang.dart';
+import 'package:jobdi/presentation/pages/auth/login_page.dart'
+    show ErrorPhoneWidget;
 import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
 import 'package:jobdi/widgets/app_svg_images.dart';
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/click_widget.dart';
 import 'package:jobdi/widgets/common_app_bar.dart';
+import 'package:jobdi/widgets/common_checkbox.dart';
 import 'package:jobdi/widgets/custom_text_field.dart';
 import 'package:jobdi/widgets/gap.dart';
 import 'package:jobdi/widgets/primary_button.dart';
 
-class LoginPage extends StatefulWidget implements BasePage {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget implements BasePage {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 
   @override
-  String get screenName => 'LoginPage';
+  String get screenName => 'RegisterPage';
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   CountryEntity _selectedCountry = CountryEntity.listCountries.first;
+  bool _checked = false;
 
   void _onOpenCountryPhonePicker() {
     showCupertinoModalPopup<void>(
@@ -50,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return AppSafeArea(
       child: Scaffold(
-        appBar: CommonAppBar(title: context.lang.signIn),
+        appBar: CommonAppBar(title: 'Đăng ký'),
         backgroundColor: appScheme.primaryColor,
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -82,13 +85,13 @@ class _LoginPageState extends State<LoginPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 SemiBoldText(
-                                  context.lang.signIn,
+                                  'Đăng ký',
                                   fontSize: 20,
                                   color: appScheme.gray900,
                                 ),
                                 const Gap(8),
                                 RegularText(
-                                  context.lang.descSignIn,
+                                  'Nhập số điện thoại di động của anh/chị. SĐT được dùng cho các giao dịch tại JOBDEE!',
                                   fontSize: 14,
                                   color: appScheme.gray500,
                                 ),
@@ -139,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                     const Gap(20),
                     RichText(
                       text: TextSpan(
-                        text: 'Chưa có tài khoản? ',
+                        text: 'Đã có tài khoản? ',
                         style: appFont.useFont(
                           color: appScheme.gray900,
                           fontSize: 14,
@@ -147,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         children: [
                           TextSpan(
-                            text: 'Đăng ký',
+                            text: 'Đăng nhập',
                             style: appFont.useFont(
                               color: appScheme.blue500,
                               fontSize: 14,
@@ -155,7 +158,11 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                NavigatorService.goToRegisterPage(context);
+                                NavigatorService.goToLoginPage(
+                                  context,
+                                  clearStack: false,
+                                  replace: true,
+                                );
                               },
                           ),
                         ],
@@ -164,6 +171,41 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+              Row(
+                children: <Widget>[
+                  CommonCheckbox(
+                    onChanged: (value) {
+                      setState(() {
+                        _checked = value;
+                      });
+                    },
+                    isChecked: _checked,
+                  ),
+                  const Gap(8),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Tôi đồng ý với ',
+                      style: appFont.useFont(
+                        color: appScheme.gray900,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'điều khoản sử dụng',
+                          style: appFont.useFont(
+                            color: appScheme.blue500,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = () => {},
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const Gap(16),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: PrimaryButton(
@@ -174,34 +216,6 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ErrorPhoneWidget extends StatelessWidget {
-  const ErrorPhoneWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 16),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: appScheme.red50,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Row(
-        children: <Widget>[
-          const AppSvgImage(assetName: SVGAsset.error),
-          const Gap(8),
-          Flexible(
-            child: RegularText(
-              'Không nhận dạng được số điện thoại. Vui lòng thử lại',
-              color: appScheme.gray900,
-            ),
-          ),
-        ],
       ),
     );
   }

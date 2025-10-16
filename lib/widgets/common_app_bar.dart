@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart' show REdgeInsets;
 import 'package:jobdi/core/services/navigation_service/navigator_service.dart'
     show NavigatorService;
 import 'package:jobdi/core/themes/app_colors.dart';
-import 'package:jobdi/core/themes/app_image.dart' show SVGAsset;
-import 'package:jobdi/widgets/app_svg_images.dart' show AppSvgImage;
+import 'package:jobdi/core/themes/app_image.dart';
+import 'package:jobdi/widgets/app_svg_images.dart';
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/click_widget.dart' show ClickWidget;
 
@@ -115,10 +115,11 @@ class _CommonAppBarState extends State<CommonAppBar> {
                   onTap:
                       widget.onBack ??
                       () => NavigatorService.goBack(context, widget.resultBack),
-                  child: const AppSvgImage(
+                  child: AppSvgImage(
                     assetName: SVGAsset.icon_arrow_left,
-                    width: 20,
-                    height: 20,
+                    color: appScheme.white,
+                    width: 24,
+                    height: 24,
                   ),
                 ),
               ),

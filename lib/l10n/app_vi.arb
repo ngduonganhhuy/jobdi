@@ -2,5 +2,7 @@
   "@@locale": "vi",
   "signIn": "Đăng nhập",
   "descSignIn": "Nhập số điện thoại của anh/chị.",
-  "phone": "Số điện thoại"
+  "phone": "Số điện thoại",
+  "notRegisterYet": "Chưa có tài khoản?",
+  "signUp": "Đăng ký"
 }

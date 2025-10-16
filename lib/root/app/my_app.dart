@@ -7,7 +7,7 @@ import 'package:jobdi/core/utils/injection.dart';
 import 'package:jobdi/core/utils/storage_util.dart';
 import 'package:jobdi/core_bloc/theme/theme_bloc.dart';
 import 'package:jobdi/l10n/app_localizations.dart' show AppLocalizations;
-import 'package:jobdi/presentation/pages/auth/login_page.dart';
+import 'package:jobdi/presentation/pages/auth/otp_page.dart';
 import 'package:jobdi/presentation/pages/onboarding/onboarding_page.dart';
 
 class MyApp extends StatefulWidget {
@@ -50,6 +50,21 @@ class _MyAppState extends State<MyApp> {
               theme: ThemeData(
                 primaryColor: state.appColors?.primaryColor,
                 fontFamily: Constants.fontFamilyName,
+                checkboxTheme: CheckboxThemeData(
+                  checkColor: WidgetStateProperty.all<Color>(
+                    Colors.white,
+                  ),
+                  side: BorderSide.none,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  fillColor: WidgetStateProperty.resolveWith<Color?>((states) {
+                    if (states.contains(WidgetState.selected)) {
+                      return state.appColors?.blue500;
+                    }
+                    return state.appColors?.gray100;
+                  }),
+                ),
               ),
               navigatorObservers: [
                 Injection.appRouteObserver,
@@ -75,7 +90,7 @@ class _MyAppState extends State<MyApp> {
           },
         );
       },
-      child: _isFirstLaunch ? const OnboardingPage() : const LoginPage(),
+      child: _isFirstLaunch ? const OnboardingPage() : const OTPPage(),
     );
   }
 }
