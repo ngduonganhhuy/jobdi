@@ -108,7 +108,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
             : MainAxisAlignment.center,
         children: [
           if (widget.isShowLeading)
-            Flexible(
+            Expanded(
               child: Visibility(
                 visible: Navigator.canPop(context),
                 child: ClickWidget(
@@ -125,7 +125,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
               ),
             ),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: SemiBoldText(
               widget.title,
               textAlign: TextAlign.center,

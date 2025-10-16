@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, BlocListener;
 import 'package:flutter_screenutil/flutter_screenutil.dart'
     show RPadding, SizeExtension;
 import 'package:jobdi/core/impl/base_page.dart' show BasePage;
-import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
 import 'package:jobdi/core/themes/app_colors.dart' show appScheme;
 import 'package:jobdi/core/themes/app_image.dart' show PNGAsset;
 import 'package:jobdi/core/themes/app_text_styles.dart';
@@ -63,21 +62,26 @@ class _OTPPageState extends State<OTPPage> {
     super.dispose();
   }
 
+  void _showLimitedOtpDialog() {
+    showCupertinoDialog<void>(
+      context: context,
+      builder: (context) => AlertLimitedOtp(authBloc: _authBloc),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,
+      listenWhen: (previous, current) =>
+          previous.runtimeType != current.runtimeType,
       listener: (context, state) {
         state.whenOrNull(
           showNotificationNoticed: (_, _) {
-            showCupertinoDialog<void>(
-              context: context,
-              builder: (context) {
-                return AlertLimitedOtp(
-                  authBloc: _authBloc,
-                );
-              },
-            ).whenComplete(() => NavigatorService.goBack<void>(context));
+            pinController.clear();
+            focusNode.unfocus();
+            _authBloc.startCooldownTimer(state.secondRemainingToWait!);
+            _showLimitedOtpDialog();
           },
         );
       },
@@ -181,68 +185,79 @@ class _OTPPageState extends State<OTPPage> {
     return BlocBuilder<AuthBloc, AuthState>(
       bloc: _authBloc,
       builder: (context, state) {
-        return RPadding(
-          padding: const EdgeInsets.symmetric(vertical: 40),
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: Pinput(
-              length: 6,
-              enableInteractiveSelection: true,
-              smsRetriever: smsRetriever,
-              controller: pinController,
-              focusNode: focusNode,
-              defaultPinTheme: defaultPinTheme,
-              separatorBuilder: (index) => const Gap(12),
-              validator: (value) {
-                if (value != '222222') {
-                  _authBloc.add(const AuthEvent.otpValidatorFailed());
-                }
-                return value == '222222' ? null : 'Pin is incorrect';
-              },
-              hapticFeedbackType: HapticFeedbackType.lightImpact,
-              onCompleted: (pin) {},
-              onChanged: (value) {
-                debugPrint('onChanged: $value');
-              },
-              focusedPinTheme: defaultPinTheme.copyWith(
-                decoration: defaultPinTheme.decoration!.copyWith(
-                  border: Border.all(color: appScheme.blue500),
-                  color: appScheme.white,
+        return ClickWidget(
+          onTap: state.retryRemaining! > 0 || state.secondRemainingToWait! <= 0
+              ? null
+              : () {
+                  _authBloc.startCooldownTimer(state.secondRemainingToWait!);
+                  _showLimitedOtpDialog();
+                },
+          child: RPadding(
+            padding: const EdgeInsets.symmetric(vertical: 40),
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Pinput(
+                length: 6,
+                enableInteractiveSelection: true,
+                smsRetriever: smsRetriever,
+                controller: pinController,
+                focusNode: focusNode,
+                defaultPinTheme: defaultPinTheme,
+                separatorBuilder: (index) => const Gap(12),
+                validator: (value) {
+                  if (value != '222222') {
+                    _authBloc.add(const AuthEvent.otpValidatorFailed());
+                  }
+                  return value == '222222' ? null : 'Pin is incorrect';
+                },
+                enabled:
+                    state.retryRemaining! > 0 ||
+                    state.secondRemainingToWait! <= 0,
+                hapticFeedbackType: HapticFeedbackType.lightImpact,
+                onCompleted: (pin) {},
+                onChanged: (value) {
+                  debugPrint('onChanged: $value');
+                },
+                focusedPinTheme: defaultPinTheme.copyWith(
+                  decoration: defaultPinTheme.decoration!.copyWith(
+                    border: Border.all(color: appScheme.blue500),
+                    color: appScheme.white,
+                  ),
                 ),
-              ),
-              errorPinTheme: defaultPinTheme.copyWith(
-                decoration: defaultPinTheme.decoration!.copyWith(
-                  border: Border.all(color: appScheme.red500),
-                  color: appScheme.white,
+                errorPinTheme: defaultPinTheme.copyWith(
+                  decoration: defaultPinTheme.decoration!.copyWith(
+                    border: Border.all(color: appScheme.red500),
+                    color: appScheme.white,
+                  ),
                 ),
-              ),
-              errorBuilder: (errorText, pin) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Mã OTP không hợp lệ. Số lần nhập còn lại: ',
-                        style: appFont.useFont(
-                          color: appScheme.red500,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '0${state.retryRemaining}',
-                            style: appFont.useFont(
-                              color: appScheme.red500,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
+                errorBuilder: (errorText, pin) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Center(
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Mã OTP không hợp lệ. Số lần nhập còn lại: ',
+                          style: appFont.useFont(
+                            color: appScheme.red500,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
                           ),
-                        ],
+                          children: [
+                            TextSpan(
+                              text: '0${state.retryRemaining}',
+                              style: appFont.useFont(
+                                color: appScheme.red500,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobdi/core/utils/utils.dart';
+import 'package:jobdi/core_bloc/app/app_bloc.dart';
 import 'package:jobdi/core_bloc/theme/theme_bloc.dart';
 import 'package:jobdi/injection_container.dart';
 import 'package:jobdi/root/app/my_app.dart';
@@ -14,6 +15,10 @@ class Root extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => locator<ThemeBloc>()..add(SetInitialTheme()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              locator<AppBloc>()..add(const AppEvent.started()),
         ),
       ],
       child: GestureDetector(

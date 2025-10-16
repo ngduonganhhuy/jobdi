@@ -8,6 +8,7 @@ class StorageKey {
   static const FIRST_LAUNCH = 'first_launch';
   static const MY_ACCOUNT = 'my_account';
   static const THEME = 'theme';
+  static const ROLE_CODE = 'role_code';
 }
 
 class StorageUtil {

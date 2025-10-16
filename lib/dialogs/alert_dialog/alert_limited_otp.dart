@@ -1,5 +1,3 @@
-import 'dart:async' show Timer;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder;
 import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
@@ -7,51 +5,15 @@ import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core/themes/app_text_styles.dart';
 import 'package:jobdi/presentation/bloc/auth/auth_bloc.dart';
-import 'package:jobdi/presentation/bloc/auth/auth_event.dart' show AuthEvent;
 import 'package:jobdi/presentation/bloc/auth/auth_state.dart' show AuthState;
 import 'package:jobdi/widgets/app_svg_images.dart';
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/click_widget.dart' show ClickWidget;
 import 'package:jobdi/widgets/gap.dart';
 
-class AlertLimitedOtp extends StatefulWidget {
+class AlertLimitedOtp extends StatelessWidget {
   const AlertLimitedOtp({required this.authBloc, super.key});
   final AuthBloc authBloc;
-
-  @override
-  State<AlertLimitedOtp> createState() => _AlertLimitedOtpState();
-}
-
-class _AlertLimitedOtpState extends State<AlertLimitedOtp> {
-  late int _remaining;
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _startCooldown();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  void _startCooldown() {
-    _timer?.cancel();
-    _remaining = widget.authBloc.state.secondRemaingToWait;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remaining == 0) {
-        timer.cancel();
-      } else {
-        widget.authBloc.add(
-          AuthEvent.updateSecondRemaingToWait(--_remaining),
-        );
-        setState(() {});
-      }
-    });
-  }
 
   String _formatTime(int totalSeconds) {
     final minutes = (totalSeconds ~/ 60).toString().padLeft(2, '0');
@@ -87,7 +49,7 @@ class _AlertLimitedOtpState extends State<AlertLimitedOtp> {
                   ),
                   const Gap(20),
                   BlocBuilder<AuthBloc, AuthState>(
-                    bloc: widget.authBloc,
+                    bloc: authBloc,
                     builder: (context, state) {
                       return RichText(
                         textAlign: TextAlign.center,
@@ -100,7 +62,9 @@ class _AlertLimitedOtpState extends State<AlertLimitedOtp> {
                           ),
                           children: [
                             TextSpan(
-                              text: _formatTime(state.secondRemaingToWait),
+                              text: _formatTime(
+                                state.secondRemainingToWait ?? 0,
+                              ),
                               style: appFont.useFont(
                                 color: appScheme.gray700,
                                 fontWeight: FontWeight.w600,

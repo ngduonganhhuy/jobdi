@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:jobdi/core_bloc/app/app_bloc.dart';
 import 'package:jobdi/core_bloc/theme/theme_bloc.dart';
 import 'package:jobdi/data/data_sources/auth_remote.dart';
 import 'package:jobdi/data/repositories/auth_repository.dart';
@@ -12,6 +13,7 @@ void setupLocator() {
   locator
     ..registerFactory(() => AuthBloc(locator()))
     ..registerFactory(ThemeBloc.new)
+    ..registerFactory(AppBloc.new)
     // usecase
     ..registerLazySingleton(() => LoginUseCase(locator()))
     // repository

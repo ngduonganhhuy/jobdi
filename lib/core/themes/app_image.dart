@@ -8,6 +8,8 @@ class PNGAsset {
   static const String onboarding2 = '${folderName}onboarding-2.png';
   static const String onboarding3 = '${folderName}onboarding-3.png';
   static const String touch_phone = '${folderName}touch_phone.png';
+  static const String client = '${folderName}client.png';
+  static const String staff = '${folderName}staff.png';
 }
 
 class SVGAsset {
@@ -20,4 +22,8 @@ class SVGAsset {
   static const String vietnam = '${folderName}vietnam.svg';
   static const String error = '${folderName}error.svg';
   static const String notification = '${folderName}notification.svg';
+  static const String icon_arrow_left_long =
+      '${folderName}icon_arrow_left_long.svg';
+  static const String icon_arrow_right_long =
+      '${folderName}icon_arrow_right_long.svg';
 }

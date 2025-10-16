@@ -30,6 +30,7 @@ class AppColors {
     required this.blue400,
     required this.gray700,
     required this.gray50,
+    required this.gray800,
   });
 
   final Color primaryColor;
@@ -37,6 +38,7 @@ class AppColors {
   final Color black;
   final Color gray200;
   final Color gray900;
+  final Color gray800;
   final Color gray500;
   final Color gray300;
   final Color gray100;
