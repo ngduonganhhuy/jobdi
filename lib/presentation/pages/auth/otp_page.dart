@@ -11,12 +11,9 @@ import 'package:jobdi/core/impl/base_page.dart' show BasePage;
 import 'package:jobdi/core/themes/app_colors.dart' show appScheme;
 import 'package:jobdi/core/themes/app_image.dart' show PNGAsset;
 import 'package:jobdi/core/themes/app_text_styles.dart';
-import 'package:jobdi/dialogs/alert_dialog/alert_limited_otp.dart';
 import 'package:jobdi/injection_container.dart';
+import 'package:jobdi/modals/dialogs/alert_dialog/alert_limited_otp.dart';
 import 'package:jobdi/presentation/bloc/auth/auth_bloc.dart';
-import 'package:jobdi/presentation/bloc/auth/auth_event.dart';
-import 'package:jobdi/presentation/bloc/auth/auth_state.dart'
-    show AuthState, AuthStatePatterns;
 import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
 import 'package:jobdi/widgets/app_text.dart' show SemiBoldText;
 import 'package:jobdi/widgets/click_widget.dart';

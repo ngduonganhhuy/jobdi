@@ -7,7 +7,7 @@ import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core/themes/app_text_styles.dart';
-import 'package:jobdi/dialogs/picker/selected_country_phone_picker.dart';
+import 'package:jobdi/modals/dialogs/picker/selected_country_phone_picker.dart';
 import 'package:jobdi/domain/entities/country_entity.dart';
 import 'package:jobdi/presentation/pages/auth/login_page.dart'
     show ErrorPhoneWidget;

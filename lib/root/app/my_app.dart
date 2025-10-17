@@ -5,9 +5,11 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:jobdi/core/constants/constants.dart';
 import 'package:jobdi/core/utils/injection.dart';
 import 'package:jobdi/core/utils/storage_util.dart';
+import 'package:jobdi/core_bloc/app/app_bloc.dart';
 import 'package:jobdi/core_bloc/theme/theme_bloc.dart';
+import 'package:jobdi/injection_container.dart';
 import 'package:jobdi/l10n/app_localizations.dart' show AppLocalizations;
-import 'package:jobdi/presentation/pages/auth/otp_page.dart';
+import 'package:jobdi/presentation/pages/auth/input_information_page.dart';
 import 'package:jobdi/presentation/pages/onboarding/onboarding_page.dart';
 
 class MyApp extends StatefulWidget {
@@ -23,6 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     _initFirstLaunch();
+    _initRole();
     super.initState();
   }
 
@@ -31,6 +34,10 @@ class _MyAppState extends State<MyApp> {
     if (_isFirstLaunch) {
       StorageUtil.putBool(StorageKey.FIRST_LAUNCH, data: false);
     }
+  }
+
+  void _initRole() {
+    locator<AppBloc>().add(const AppEvent.started());
   }
 
   @override
@@ -90,7 +97,9 @@ class _MyAppState extends State<MyApp> {
           },
         );
       },
-      child: _isFirstLaunch ? const OnboardingPage() : const OTPPage(),
+      child: _isFirstLaunch
+          ? const OnboardingPage()
+          : const InputInformationPage(),
     );
   }
 }

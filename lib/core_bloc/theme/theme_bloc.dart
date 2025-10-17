@@ -2,8 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_themes.dart';
+import 'package:jobdi/core/utils/injection.dart';
 import 'package:jobdi/core/utils/storage_util.dart';
 import 'package:jobdi/core/utils/utils.dart';
+import 'package:jobdi/root/app/root.dart';
 
 part 'theme_event.dart';
 part 'theme_state.dart';
@@ -33,6 +35,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     Emitter<ThemeState> emit, {
     required AppTheme newTheme,
   }) async {
+    if (newTheme == getTheme()) return;
     switch (newTheme) {
       case AppTheme.Pink:
         emit(PinkThemeState());
@@ -40,5 +43,6 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         emit(GreenThemeState());
     }
     await StorageUtil.putString(StorageKey.THEME, newTheme.key);
+    RestartWidget.restartApp(Injection.navKey.currentContext!);
   }
 }

@@ -26,4 +26,8 @@ class SVGAsset {
       '${folderName}icon_arrow_left_long.svg';
   static const String icon_arrow_right_long =
       '${folderName}icon_arrow_right_long.svg';
+  static const String icon_reload = '${folderName}icon_reload.svg';
+  static const String icon_lib = '${folderName}icon_lib.svg';
+  static const String icon_camera = '${folderName}icon_camera.svg';
+  static const String icon_chevron_down = '${folderName}icon_chevron_down.svg';
 }

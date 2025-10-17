@@ -1,31 +1,28 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:jobdi/domain/entities/auth_entity.dart' show AuthEntity;
-
-part 'auth_state.freezed.dart';
+part of 'auth_bloc.dart';
 
 @freezed
 sealed class AuthState with _$AuthState {
   const factory AuthState.initial({
     @Default(5) int retryRemaining,
     @Default(300) int secondRemainingToWait,
-  }) = AuthInitial;
+  }) = _AuthInitial;
 
   const factory AuthState.failed({
     required String message,
     int? retryRemaining,
     int? secondRemainingToWait,
-  }) = AuthFailed;
+  }) = _AuthFailed;
 
   const factory AuthState.success({
-    required AuthEntity authEntity,
+    AuthEntity? authEntity,
     int? retryRemaining,
     int? secondRemainingToWait,
-  }) = AuthSuccess;
+  }) = _AuthSuccess;
 
   const factory AuthState.showNotificationNoticed({
     int? retryRemaining,
     int? secondRemainingToWait,
-  }) = ShowNotificationNoticed;
+  }) = _ShowNotificationNoticed;
 }
 
 extension AuthStateX on AuthState {

@@ -5,7 +5,6 @@ import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core/themes/app_text_styles.dart';
 import 'package:jobdi/presentation/bloc/auth/auth_bloc.dart';
-import 'package:jobdi/presentation/bloc/auth/auth_state.dart' show AuthState;
 import 'package:jobdi/widgets/app_svg_images.dart';
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/click_widget.dart' show ClickWidget;

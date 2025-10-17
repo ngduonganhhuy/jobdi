@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart' show XFile;
 import 'package:intl/intl.dart';
 import 'package:jobdi/core/utils/logger.dart';
 
@@ -130,5 +132,12 @@ class Utils {
       }
     }
     return '';
+  }
+
+  static double getHeightPercent(BuildContext context, double percent) =>
+      1.sh * percent / 100;
+
+  static Future<XFile> compressXFile(XFile file) async {
+    return file;
   }
 }

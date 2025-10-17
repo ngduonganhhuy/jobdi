@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:jobdi/core/themes/app_colors.dart';
 
 class AppSafeArea extends StatelessWidget {
   const AppSafeArea({
@@ -15,11 +16,11 @@ class AppSafeArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: color,
+    return ColoredBox(
+      color: color ?? appScheme.primaryColor,
       child: SafeArea(
         top: top ?? true,
-        bottom: bottom ?? true,
+        bottom: bottom ?? false,
         child: child,
       ),
     );

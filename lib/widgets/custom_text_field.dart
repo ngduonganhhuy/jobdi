@@ -15,6 +15,11 @@ class CustomTextField extends StatefulWidget {
     this.hintText,
     this.onChanged,
     this.hasError = false,
+    this.prefix,
+    this.suffix,
+    this.readOnly = false,
+    this.enable = true,
+    this.onTap,
   });
 
   final TextEditingController? controller;
@@ -23,6 +28,11 @@ class CustomTextField extends StatefulWidget {
   final String? hintText;
   final ValueChanged<String>? onChanged;
   final bool hasError;
+  final bool readOnly;
+  final bool enable;
+  final Widget? prefix;
+  final Widget? suffix;
+  final VoidCallback? onTap;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -35,7 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode()
+    _focusNode = widget.readOnly ? AlwaysDisabledFocusNode() : FocusNode()
       ..addListener(() {
         setState(() => _hasFocus = _focusNode.hasFocus);
       });
@@ -58,7 +68,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
     builder: (fieldState) {
       _hasError = fieldState.hasError;
       return TextFormField(
+        readOnly: widget.readOnly,
+        enabled: widget.enable,
         focusNode: _focusNode,
+        onTap: widget.onTap,
+        enableInteractiveSelection: !widget.readOnly,
         controller: widget.controller,
         onChanged: (value) {
           widget.onChanged?.call(value);
@@ -66,6 +80,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
         },
         validator: widget.validator,
         decoration: InputDecoration(
+          prefix: widget.prefix,
+          prefixIconConstraints: const BoxConstraints(
+            minHeight: 10,
+            minWidth: 10,
+          ),
+          suffixIconConstraints: const BoxConstraints(
+            minHeight: 24,
+            minWidth: 24,
+          ),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: widget.suffix,
+          ),
           filled: true,
           fillColor: _fillColor,
           hintText: widget.hintText,
@@ -100,4 +127,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       );
     },
   );
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

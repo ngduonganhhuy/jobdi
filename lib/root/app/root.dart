@@ -17,8 +17,7 @@ class Root extends StatelessWidget {
           create: (context) => locator<ThemeBloc>()..add(SetInitialTheme()),
         ),
         BlocProvider(
-          create: (context) =>
-              locator<AppBloc>()..add(const AppEvent.started()),
+          create: (context) => locator<AppBloc>(),
         ),
       ],
       child: GestureDetector(
@@ -26,8 +25,39 @@ class Root extends StatelessWidget {
         onTap: () {
           Utils.closeKeyboard(context);
         },
-        child: const MyApp(),
+        child: const RestartWidget(child: MyApp()),
       ),
+    );
+  }
+}
+
+class RestartWidget extends StatefulWidget {
+  const RestartWidget({required this.child, super.key});
+
+  final Widget child;
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_RestartWidgetState>()?.restartApp();
+  }
+
+  @override
+  State<RestartWidget> createState() => _RestartWidgetState();
+}
+
+class _RestartWidgetState extends State<RestartWidget> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: key,
+      child: widget.child,
     );
   }
 }

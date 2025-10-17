@@ -1,19 +1,17 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'auth_event.freezed.dart';
+part of 'auth_bloc.dart';
 
 @freezed
 class AuthEvent with _$AuthEvent {
   const factory AuthEvent.signInRequested({
     required String username,
     required String password,
-  }) = AuthSignInRequested;
+  }) = _AuthSignInRequested;
 
-  const factory AuthEvent.otpValidatorFailed() = OTPValidatorFailed;
+  const factory AuthEvent.otpValidatorFailed() = _OTPValidatorFailed;
 
   const factory AuthEvent.checkShowNotificationIfNeeded() =
-      CheckShowNotificationIfNeeded;
+      _CheckShowNotificationIfNeeded;
 
   const factory AuthEvent.updateSecondRemaingToWait(int second) =
-      UpdateSecondRemaingToWait;
+      _UpdateSecondRemaingToWait;
 }

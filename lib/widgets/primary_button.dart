@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/extensions/widget_extension.dart';
 import 'package:jobdi/core/themes/app_colors.dart' show appScheme;
 import 'package:jobdi/widgets/app_text.dart';
+import 'package:jobdi/widgets/click_widget.dart' show ClickWidget;
 import 'package:jobdi/widgets/three_bounce_loading.dart' show ThreeRotatingDots;
 
 enum GradientOrientation {
@@ -12,7 +13,7 @@ enum GradientOrientation {
 
 class PrimaryButton extends StatefulWidget {
   PrimaryButton({
-    required this.onTap,
+    this.onTap,
     this.child,
     super.key,
     this.borderColor,
@@ -29,12 +30,14 @@ class PrimaryButton extends StatefulWidget {
     this.endColor,
     this.processing = false,
     this.label,
+    this.textColor,
   }) : br = BorderRadius.all(Radius.circular(borderRadius)),
        calculatedWidth = stretch ? double.infinity : width;
 
   final Color? startColor;
   final Color? endColor;
   final Color? borderColor;
+  final Color? textColor;
   final Color progressColor;
   final double progressSize;
   final double borderThickness;
@@ -44,7 +47,7 @@ class PrimaryButton extends StatefulWidget {
   final double width;
   final bool progress;
   final bool disabled;
-  final void Function() onTap;
+  final VoidCallback? onTap;
   final Widget? child;
   final BorderRadius br;
   final double calculatedWidth;
@@ -79,7 +82,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
           borderRadius: widget.br,
           color: widget.disabled
               ? appScheme.gray200
-              : (widget.borderColor ?? appScheme.primaryColor),
+              : (widget.borderColor ?? widget.endColor),
         ),
         child: ConstrainedBox(
           constraints: const BoxConstraints.expand(
@@ -163,7 +166,9 @@ class _PrimaryButtonState extends State<PrimaryButton>
           widget.child ??
           SemiBoldText(
             widget.label ?? '',
-            color: widget.disabled ? appScheme.gray300 : appScheme.white,
+            color: widget.disabled
+                ? appScheme.gray300
+                : (widget.textColor ?? appScheme.white),
           ),
     ).paddingOnly(top: widget.borderThickness);
   }
@@ -174,7 +179,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
       _moveMargin = _borderThickness.r;
       _tapped = true;
     });
-    widget.onTap();
+    widget.onTap?.call();
     _finish();
   }
 
@@ -201,6 +206,43 @@ class _PrimaryButtonState extends State<PrimaryButton>
             _buildFrontLayout(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class SmallButton extends StatelessWidget {
+  const SmallButton({
+    super.key,
+    this.bgColor,
+    this.onTap,
+    this.child,
+    this.label,
+  }) : assert(
+         child != null || label != null,
+         'Either child or label must be provided',
+       );
+  final Color? bgColor;
+  final VoidCallback? onTap;
+  final Widget? child;
+  final String? label;
+  @override
+  Widget build(BuildContext context) {
+    return ClickWidget(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+        decoration: BoxDecoration(
+          color: bgColor ?? appScheme.primaryColor,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child:
+            child ??
+            SemiBoldText(
+              label!,
+              fontSize: 16,
+              color: appScheme.white,
+            ),
       ),
     );
   }

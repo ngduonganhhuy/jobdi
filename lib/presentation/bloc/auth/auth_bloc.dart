@@ -1,24 +1,23 @@
+// ignore_for_file: library_private_types_in_public_api, document_ignores
+
 import 'dart:async' show Timer;
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jobdi/core/impl/result_response.dart';
+import 'package:jobdi/domain/entities/auth_entity.dart' show AuthEntity;
 import 'package:jobdi/domain/usecases/auth/login_use_case.dart';
-import 'package:jobdi/presentation/bloc/auth/auth_event.dart'
-    show
-        AuthEvent,
-        AuthSignInRequested,
-        CheckShowNotificationIfNeeded,
-        OTPValidatorFailed,
-        UpdateSecondRemaingToWait;
-import 'package:jobdi/presentation/bloc/auth/auth_state.dart'
-    show AuthInitial, AuthState, AuthStateX, ShowNotificationNoticed;
+
+part 'auth_bloc.freezed.dart';
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(this.loginUseCase) : super(const AuthInitial()) {
-    on<AuthSignInRequested>(signIn);
-    on<OTPValidatorFailed>(onValidateOtpFailed);
-    on<CheckShowNotificationIfNeeded>(checkShowNotificationIfNeeded);
-    on<UpdateSecondRemaingToWait>(updateSecondRemaingToWait);
+  AuthBloc(this.loginUseCase) : super(const _AuthInitial()) {
+    on<_AuthSignInRequested>(signIn);
+    on<_OTPValidatorFailed>(onValidateOtpFailed);
+    on<_CheckShowNotificationIfNeeded>(checkShowNotificationIfNeeded);
+    on<_UpdateSecondRemaingToWait>(updateSecondRemaingToWait);
   }
   final LoginUseCase loginUseCase;
   Timer? _cooldownTimer;
@@ -27,24 +26,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void startCooldownTimer(int seconds) {
     _cooldownTimer?.cancel();
 
-    add(UpdateSecondRemaingToWait(seconds));
+    add(_UpdateSecondRemaingToWait(seconds));
 
     _cooldownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       final nextSecond = seconds - timer.tick;
       if (nextSecond <= 0) {
         timer.cancel();
-        add(const UpdateSecondRemaingToWait(0));
+        add(const _UpdateSecondRemaingToWait(0));
       } else {
-        add(UpdateSecondRemaingToWait(nextSecond));
+        add(_UpdateSecondRemaingToWait(nextSecond));
       }
     });
   }
 
   void updateSecondRemaingToWait(
-    UpdateSecondRemaingToWait event,
+    _UpdateSecondRemaingToWait event,
     Emitter<AuthState> emit,
   ) {
-    final isNotice = state is ShowNotificationNoticed;
+    final isNotice = state is _ShowNotificationNoticed;
     if (event.second <= 0) {
       emit(
         state.copyWith(
@@ -68,7 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void checkShowNotificationIfNeeded(
-    CheckShowNotificationIfNeeded event,
+    _CheckShowNotificationIfNeeded event,
     Emitter<AuthState> emit,
   ) {
     if (state.retryRemaining == null || state.secondRemainingToWait == null) {
@@ -80,7 +79,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void onValidateOtpFailed(OTPValidatorFailed event, Emitter<AuthState> emit) {
+  void onValidateOtpFailed(_OTPValidatorFailed event, Emitter<AuthState> emit) {
     if (state.retryRemaining == null || state.secondRemainingToWait == null) {
       return;
     }
@@ -96,7 +95,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> signIn(
-    AuthSignInRequested event,
+    _AuthSignInRequested event,
     Emitter<AuthState> emit,
   ) async {
     try {
@@ -105,7 +104,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.password,
       );
       if (response.status == ResultStatus.success && response.data != null) {
-        final success = AuthState.success(authEntity: response.data!);
+        final success = AuthState.success(authEntity: response.data);
         _lastNonNoticeState = success;
         emit(success);
       } else {

@@ -12,8 +12,8 @@ void setupLocator() {
   // bloc
   locator
     ..registerFactory(() => AuthBloc(locator()))
-    ..registerFactory(ThemeBloc.new)
-    ..registerFactory(AppBloc.new)
+    ..registerLazySingleton(ThemeBloc.new)
+    ..registerLazySingleton(AppBloc.new)
     // usecase
     ..registerLazySingleton(() => LoginUseCase(locator()))
     // repository

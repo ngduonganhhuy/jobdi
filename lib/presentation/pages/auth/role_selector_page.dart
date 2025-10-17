@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder;
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/impl/base_page.dart' show BasePage;
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
@@ -36,7 +37,8 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
         appBar: CommonAppBar(title: 'Chọn thợ'),
         backgroundColor: appScheme.primaryColor,
         body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
           margin: const EdgeInsets.only(top: 12),
           decoration: BoxDecoration(
             color: appScheme.white,
@@ -46,26 +48,26 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
             ),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
+              const Gap(8),
+              SemiBoldText(
+                'Anh/chị là khách hàng hay thợ?',
+                fontSize: 20,
+                color: appScheme.gray900,
+              ),
+              const Gap(8),
+              RegularText(
+                'Chọn vai trò của anh/chị trên app Jobdee',
+                fontSize: 14,
+                color: appScheme.gray500,
+              ),
+              Center(
                 child: Column(
                   children: <Widget>[
-                    const Gap(8),
-                    SemiBoldText(
-                      'Anh/chị là khách hàng hay thợ?',
-                      fontSize: 20,
-                      color: appScheme.gray900,
-                    ),
-                    const Gap(8),
-                    RegularText(
-                      'Chọn vai trò của anh/chị trên app Jobdee',
-                      fontSize: 14,
-                      color: appScheme.gray500,
-                    ),
-                    const Gap(80),
+                    const Gap(56),
                     ...RoleEntity.values.map((RoleEntity role) {
                       return BlocBuilder<AppBloc, AppState>(
-                        bloc: _appBloc,
                         builder: (context, state) {
                           final isSelected = _appBloc.role == role;
                           final color = isSelected
@@ -74,6 +76,7 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
                           final borderColor = isSelected
                               ? appScheme.primaryColor
                               : appScheme.gray200;
+
                           return ClickWidget(
                             onTap: () {
                               _appBloc.setRole(role);
@@ -84,6 +87,11 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
                             child: Stack(
                               children: [
                                 Container(
+                                  width: 256.w,
+                                  margin: const EdgeInsets.only(top: 24),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 24,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: color,
                                     border: Border.all(
@@ -107,11 +115,12 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
                                 ),
 
                                 Positioned(
-                                  top: 14,
+                                  top: 38,
                                   left: 14,
                                   child: Container(
                                     width: 20,
                                     height: 20,
+                                    padding: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: borderColor,
@@ -135,50 +144,53 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
                   ],
                 ),
               ),
-
+              const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    PrimaryButton(
-                      startColor: appScheme.gray50,
-                      endColor: appScheme.gray50,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          AppSvgImage(
-                            assetName: SVGAsset.icon_arrow_left_long,
-                            color: appScheme.gray900,
-                          ),
-                          const Gap(8),
-                          SemiBoldText(
-                            'Quay lại',
-                            fontSize: 16,
-                            color: appScheme.gray900,
-                          ),
-                        ],
+                    Flexible(
+                      child: SmallButton(
+                        bgColor: appScheme.gray50,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            AppSvgImage(
+                              assetName: SVGAsset.icon_arrow_left_long,
+                              color: appScheme.gray900,
+                            ),
+                            const Gap(8),
+                            SemiBoldText(
+                              'Quay lại',
+                              fontSize: 16,
+                              color: appScheme.gray900,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const Spacer(),
-                    PrimaryButton(
-                      startColor: appScheme.gray50,
-                      endColor: appScheme.gray50,
-                      onTap: () {},
-                      child: Row(
-                        children: <Widget>[
-                          SemiBoldText(
-                            'Tiếp tục',
-                            fontSize: 16,
-                            color: appScheme.white,
-                          ),
-                          const Gap(8),
-                          AppSvgImage(
-                            assetName: SVGAsset.icon_arrow_right_long,
-                            color: appScheme.white,
-                          ),
-                        ],
+                    Flexible(
+                      child: SmallButton(
+                        onTap: () {},
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            SemiBoldText(
+                              'Tiếp tục',
+                              fontSize: 16,
+                              color: appScheme.white,
+                            ),
+                            const Gap(8),
+                            AppSvgImage(
+                              assetName: SVGAsset.icon_arrow_right_long,
+                              color: appScheme.white,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
