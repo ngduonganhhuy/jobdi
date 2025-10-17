@@ -13,6 +13,7 @@ dependencies:
   collection: ^1.19.1
   dio: ^5.9.0
   equatable: ^2.0.7
+  expandable: ^5.0.1
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.2

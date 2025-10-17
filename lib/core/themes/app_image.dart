@@ -10,6 +10,7 @@ class PNGAsset {
   static const String touch_phone = '${folderName}touch_phone.png';
   static const String client = '${folderName}client.png';
   static const String staff = '${folderName}staff.png';
+  static const String user_placeholder = '${folderName}user_placeholder.png';
 }
 
 class SVGAsset {
@@ -30,4 +31,10 @@ class SVGAsset {
   static const String icon_lib = '${folderName}icon_lib.svg';
   static const String icon_camera = '${folderName}icon_camera.svg';
   static const String icon_chevron_down = '${folderName}icon_chevron_down.svg';
+  static const String icon_upload = '${folderName}icon_upload.svg';
+  static const String icon_search_outline =
+      '${folderName}icon_search_outline.svg';
+  static const String icon_chevron_right_fill =
+      '${folderName}icon_chevron_right_fill.svg';
+  static const String icon_plus = '${folderName}icon_plus.svg';
 }

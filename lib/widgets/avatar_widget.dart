@@ -13,10 +13,12 @@ class AvatarWidget extends StatelessWidget {
     this.avatarUrl,
     this.userName,
     this.filepath,
+    this.asset,
   });
   final String? avatarUrl;
   final String? filepath;
   final String? userName;
+  final String? asset;
   final double size;
 
   String get usernameDisplay {
@@ -37,7 +39,16 @@ class AvatarWidget extends StatelessWidget {
     return ClipOval(
       child: Builder(
         builder: (context) {
-          if (Utils.isNotNullOrEmpty(filepath)) {
+          if (Utils.isNotNullOrEmpty(asset)) {
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.asset(
+                asset!,
+                width: size,
+                height: size,
+              ),
+            );
+          } else if (Utils.isNotNullOrEmpty(filepath)) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: Image.file(

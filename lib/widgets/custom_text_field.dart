@@ -20,6 +20,9 @@ class CustomTextField extends StatefulWidget {
     this.readOnly = false,
     this.enable = true,
     this.onTap,
+    this.fillColor,
+    this.inputBorder,
+    this.hintStyle,
   });
 
   final TextEditingController? controller;
@@ -33,6 +36,9 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefix;
   final Widget? suffix;
   final VoidCallback? onTap;
+  final Color? fillColor;
+  final InputBorder? inputBorder;
+  final TextStyle? hintStyle;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -80,10 +86,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         },
         validator: widget.validator,
         decoration: InputDecoration(
-          prefix: widget.prefix,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: widget.prefix,
+          ),
           prefixIconConstraints: const BoxConstraints(
-            minHeight: 10,
-            minWidth: 10,
+            minHeight: 24,
+            minWidth: 24,
           ),
           suffixIconConstraints: const BoxConstraints(
             minHeight: 24,
@@ -94,35 +103,43 @@ class _CustomTextFieldState extends State<CustomTextField> {
             child: widget.suffix,
           ),
           filled: true,
-          fillColor: _fillColor,
+          fillColor: widget.fillColor ?? _fillColor,
           hintText: widget.hintText,
-          hintStyle: appFont.useFont(
-            fontWeight: FontWeight.w400,
-            color: appScheme.gray400,
-            fontSize: 14,
-          ),
+          hintStyle:
+              widget.hintStyle ??
+              appFont.useFont(
+                fontWeight: FontWeight.w400,
+                color: appScheme.gray400,
+                fontSize: 14,
+              ),
           contentPadding: const EdgeInsets.symmetric(
             vertical: 13,
             horizontal: 12,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: appScheme.blue500,
-              width: 0.5,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: appScheme.red300,
-              width: 0.5,
-            ),
-          ),
+          enabledBorder:
+              widget.inputBorder ??
+              OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(12),
+              ),
+          focusedBorder:
+              widget.inputBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(
+                  color: appScheme.blue500,
+                  width: 0.5,
+                ),
+              ),
+          errorBorder:
+              widget.inputBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(
+                  color: appScheme.red300,
+                  width: 0.5,
+                ),
+              ),
         ),
       );
     },
