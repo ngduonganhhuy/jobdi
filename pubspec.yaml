@@ -8,7 +8,7 @@ environment:
   flutter: ^3.35.0
 
 dependencies:
-  bloc: ^9.0.1
+  bloc: ^9.1.0
   cached_network_image: ^3.4.1
   collection: ^1.19.1
   dio: ^5.9.0
