@@ -37,10 +37,10 @@ dependencies:
   smart_auth: ^3.2.0
 
 dev_dependencies:
-  freezed: ^3.2.3
   build_runner: ^2.9.0
   flutter_test:
     sdk: flutter
+  freezed: ^3.2.3
   mocktail: ^1.0.4
   very_good_analysis: ^10.0.0
 

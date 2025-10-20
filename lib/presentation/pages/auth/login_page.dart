@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
               topLeft: Radius.circular(24),
               topRight: Radius.circular(24),
             ),
-          ),
+          ),    
           child: Column(
             children: [
               Expanded(

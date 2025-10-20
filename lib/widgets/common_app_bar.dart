@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart' show AppBar, AppBarTheme, kToolbarHeight;
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart' show REdgeInsets;
 import 'package:jobdi/core/services/navigation_service/navigator_service.dart'
     show NavigatorService;
 import 'package:jobdi/core/themes/app_colors.dart';
@@ -100,8 +99,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
     actions: widget.actions,
     flexibleSpace: Container(
       color: appScheme.primaryColor,
-      height: kToolbarHeight,
-      padding: REdgeInsets.only(top: 12),
+      height: kToolbarHeight  ,
       child: Row(
         mainAxisAlignment: Navigator.canPop(context)
             ? MainAxisAlignment.start

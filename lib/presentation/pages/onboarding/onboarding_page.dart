@@ -56,6 +56,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return AppSafeArea(
+      top: false,
+
+      color: Colors.transparent,
       child: Scaffold(
         backgroundColor: appScheme.white,
         body: Container(
