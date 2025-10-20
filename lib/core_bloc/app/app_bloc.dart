@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jobdi/core/utils/injection.dart';
-import 'package:jobdi/core/utils/storage_util.dart'
-    show StorageKey, StorageUtil;
+import 'package:jobdi/core/utils/storage_util.dart' show StorageKey, StorageUtil;
 import 'package:jobdi/domain/entities/role_entity.dart' show RoleEntity;
 import 'package:jobdi/root/app/root.dart';
 
@@ -33,6 +32,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> setRole(RoleEntity role) async {
+    if (_role == role) return;
     _role = role;
     await StorageUtil.putString(StorageKey.ROLE_CODE, role.code);
     RestartWidget.restartApp(Injection.navKey.currentContext!);

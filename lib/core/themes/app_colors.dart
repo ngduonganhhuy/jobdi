@@ -11,6 +11,8 @@ AppColors get appScheme {
 class AppColors {
   AppColors({
     required this.primaryColor,
+    required this.primaryColor200,
+    required this.primaryColor50,
     required this.white,
     required this.black,
     required this.gray200,
@@ -31,6 +33,8 @@ class AppColors {
   });
 
   final Color primaryColor;
+  final Color primaryColor50;
+  final Color primaryColor200;
   final Color white;
   final Color black;
   final Color gray200;

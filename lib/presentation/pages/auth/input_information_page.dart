@@ -4,23 +4,19 @@ import 'package:jobdi/core/impl/base_page.dart' show BasePage;
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core_bloc/app/app_bloc.dart';
-import 'package:jobdi/domain/entities/administrative_unit.dart'
-    show listProvinces, listWards;
+import 'package:jobdi/domain/entities/administrative_unit.dart' show listProvinces, listWards;
 import 'package:jobdi/domain/entities/custom_file.dart' show CustomFile;
 import 'package:jobdi/domain/entities/role_entity.dart';
 import 'package:jobdi/injection_container.dart';
-import 'package:jobdi/modals/bottom_sheet.dart/image_picker_bottom_sheet.dart'
-    show ImagePickerBottomSheet;
+import 'package:jobdi/modals/bottom_sheet.dart/image_picker_bottom_sheet.dart' show ImagePickerBottomSheet;
 import 'package:jobdi/modals/bottom_sheet.dart/select_administrative_unit_bottom_sheet.dart';
 import 'package:jobdi/modals/bottom_sheet.dart/select_gender_bottom_sheet.dart';
-import 'package:jobdi/modals/bottom_sheet.dart/select_option_bottom_sheet.dart';
 import 'package:jobdi/modals/bottom_sheet.dart/select_professional_work_bottom_sheet.dart';
 import 'package:jobdi/modals/bottom_sheet.dart/selecte_year_bottom_sheet.dart';
 import 'package:jobdi/modals/modal_helper.dart';
 import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
 import 'package:jobdi/widgets/app_svg_images.dart';
-import 'package:jobdi/widgets/app_text.dart'
-    show MediumText, RegularText, SemiBoldText;
+import 'package:jobdi/widgets/app_text.dart' show MediumText, RegularText, SemiBoldText;
 import 'package:jobdi/widgets/avatar_widget.dart';
 import 'package:jobdi/widgets/click_widget.dart' show ClickWidget;
 import 'package:jobdi/widgets/common_app_bar.dart';
@@ -110,11 +106,10 @@ class _InputInformationPageState extends State<InputInformationPage> {
                           const Gap(16),
                           ClickWidget(
                             onTap: () async {
-                              _selectedFile =
-                                  await ModalHelper.showBottomSheet<CustomFile>(
-                                    context: context,
-                                    bottomSheet: const ImagePickerBottomSheet(),
-                                  );
+                              _selectedFile = await ModalHelper.showBottomSheet<CustomFile>(
+                                context: context,
+                                bottomSheet: const ImagePickerBottomSheet(),
+                              );
                               setState(() {});
                             },
                             child: Row(
@@ -144,11 +139,10 @@ class _InputInformationPageState extends State<InputInformationPage> {
                           const Gap(16),
                           ClickWidget(
                             onTap: () async {
-                              _selectedFile =
-                                  await ModalHelper.showBottomSheet<CustomFile>(
-                                    context: context,
-                                    bottomSheet: const ImagePickerBottomSheet(),
-                                  );
+                              _selectedFile = await ModalHelper.showBottomSheet<CustomFile>(
+                                context: context,
+                                bottomSheet: const ImagePickerBottomSheet(),
+                              );
                               setState(() {});
                             },
                             child: Row(
@@ -228,11 +222,10 @@ class _InputInformationPageState extends State<InputInformationPage> {
                             onTap: () {
                               ModalHelper.showBottomSheet<void>(
                                 context: context,
-                                bottomSheet:
-                                    SelectAdministrativeUnitBottomSheet(
-                                      listData: listProvinces,
-                                      title: 'Thành phố',
-                                    ),
+                                bottomSheet: SelectAdministrativeUnitBottomSheet(
+                                  listData: listProvinces,
+                                  title: 'Thành phố',
+                                ),
                               );
                             },
                             readOnly: true,
@@ -249,11 +242,10 @@ class _InputInformationPageState extends State<InputInformationPage> {
                             onTap: () {
                               ModalHelper.showBottomSheet<void>(
                                 context: context,
-                                bottomSheet:
-                                    SelectAdministrativeUnitBottomSheet(
-                                      listData: listWards,
-                                      title: 'Phường',
-                                    ),
+                                bottomSheet: SelectAdministrativeUnitBottomSheet(
+                                  listData: listWards,
+                                  title: 'Phường',
+                                ),
                               );
                             },
                             hintText: 'Phường',
@@ -268,8 +260,7 @@ class _InputInformationPageState extends State<InputInformationPage> {
                     ),
                     BlocBuilder<AppBloc, AppState>(
                       builder: (context, state) {
-                        if (_appBloc.role == null ||
-                            _appBloc.role == RoleEntity.client) {
+                        if (_appBloc.role == null || _appBloc.role == RoleEntity.client) {
                           return const SizedBox();
                         }
                         return buildWorkingField();
@@ -397,7 +388,7 @@ class _InputInformationPageState extends State<InputInformationPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           MediumText(
-                            work.label,
+                            _enumLabel(work),
                             color: appScheme.gray900,
                             fontSize: 12,
                           ),
@@ -431,5 +422,12 @@ class _InputInformationPageState extends State<InputInformationPage> {
         ),
       ),
     );
+  }
+
+  String _enumLabel(Enum value) {
+    final raw = value.toString();
+    final parts = raw.split('.');
+    final name = parts.isNotEmpty ? parts.last : raw;
+    return name.replaceAll('_', ' ');
   }
 }

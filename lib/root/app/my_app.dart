@@ -9,7 +9,7 @@ import 'package:jobdi/core_bloc/app/app_bloc.dart';
 import 'package:jobdi/core_bloc/theme/theme_bloc.dart';
 import 'package:jobdi/injection_container.dart';
 import 'package:jobdi/l10n/app_localizations.dart' show AppLocalizations;
-import 'package:jobdi/presentation/pages/auth/input_information_page.dart';
+import 'package:jobdi/presentation/pages/home/home_page.dart';
 import 'package:jobdi/presentation/pages/onboarding/onboarding_page.dart';
 
 class MyApp extends StatefulWidget {
@@ -97,9 +97,7 @@ class _MyAppState extends State<MyApp> {
           },
         );
       },
-      child: _isFirstLaunch
-          ? const OnboardingPage()
-          : const InputInformationPage(),
+      child: _isFirstLaunch ? const OnboardingPage() : const HomePage(),
     );
   }
 }
