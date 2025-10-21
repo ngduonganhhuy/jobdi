@@ -209,7 +209,10 @@ class _RegisterPageState extends State<RegisterPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: PrimaryButton(
-                  onTap: () {},
+                  disabled: !_checked,
+                  onTap: () {
+                    NavigatorService.goToOTPPage(context);
+                  },
                   label: 'Đăng nhập',
                 ),
               ),

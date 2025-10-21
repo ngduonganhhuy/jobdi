@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jobdi/core/extensions/widget_extension.dart';
 import 'package:jobdi/core/themes/app_colors.dart' show appScheme;
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/click_widget.dart' show ClickWidget;
@@ -21,7 +20,7 @@ class PrimaryButton extends StatefulWidget {
     this.progressSize = 20,
     this.borderRadius = 12,
     this.borderThickness = 5,
-    this.height = 42,
+    this.height = 44,
     this.width = 200,
     this.stretch = true,
     this.progress = false,
@@ -76,7 +75,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
     return Container(
       padding: EdgeInsets.only(top: _borderThickness.r),
       width: double.infinity,
-      height: double.infinity,
+      height: widget.height.h,
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: widget.br,
@@ -85,9 +84,9 @@ class _PrimaryButtonState extends State<PrimaryButton>
               : (widget.borderColor ?? widget.endColor),
         ),
         child: ConstrainedBox(
-          constraints: const BoxConstraints.expand(
+          constraints: BoxConstraints.expand(
             width: double.infinity,
-            height: double.infinity,
+            height: widget.height.h,
           ),
         ),
       ),
@@ -128,7 +127,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
       child: ConstrainedBox(
         constraints: BoxConstraints.expand(
           width: double.infinity,
-          height: widget.height - _borderThickness.r,
+          height: widget.height.h,
         ),
         child: ClipRRect(
           borderRadius: widget.br,
@@ -170,7 +169,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
                 ? appScheme.gray300
                 : (widget.textColor ?? appScheme.white),
           ),
-    ).paddingOnly(top: widget.borderThickness);
+    );
   }
 
   void _onTap() {

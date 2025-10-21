@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/impl/base_page.dart' show BasePage;
+import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core_bloc/app/app_bloc.dart';
@@ -175,7 +176,9 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
                     ),
                     Flexible(
                       child: SmallButton(
-                        onTap: () {},
+                        onTap: () {
+                          NavigatorService.goToInputInformationPage(context);
+                        },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[

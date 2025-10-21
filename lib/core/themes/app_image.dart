@@ -37,4 +37,5 @@ class SVGAsset {
   static const String icon_chevron_right_fill =
       '${folderName}icon_chevron_right_fill.svg';
   static const String icon_plus = '${folderName}icon_plus.svg';
+  static const String bag = '${folderName}bag.svg';
 }

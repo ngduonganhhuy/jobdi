@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart' show RSizedBox;
 
 /// {@template gap}
 /// Gap widget.
@@ -10,7 +11,7 @@ class Gap extends StatelessWidget {
   final double size;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
+  Widget build(BuildContext context) => RSizedBox(
     width: size,
     height: size,
   );

@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:jobdi/core/impl/base_page.dart';
 import 'package:jobdi/core/utils/utils.dart';
+import 'package:jobdi/presentation/pages/auth/input_information_page.dart';
 import 'package:jobdi/presentation/pages/auth/login_page.dart';
+import 'package:jobdi/presentation/pages/auth/otp_page.dart';
 import 'package:jobdi/presentation/pages/auth/register_page.dart';
+import 'package:jobdi/presentation/pages/auth/role_selector_page.dart'
+    show RoleSelectorPage;
 import 'package:jobdi/presentation/pages/home/home_page.dart';
 
 class NavigatorService {
@@ -65,7 +69,7 @@ class NavigatorService {
   static Future<T?> goToHomePage<T extends Object?>(
     BuildContext context,
   ) async {
-    return _goTo<T>(context, const HomePage());
+    return _goTo<T>(context, const HomePage(), clearStack: true);
   }
 
   static Future<T?> goToLoginPage<T extends Object?>(
@@ -84,7 +88,34 @@ class NavigatorService {
   static Future<T?> goToRegisterPage<T extends Object?>(
     BuildContext context, {
     bool replace = true,
+    bool clearStack = true,
   }) async {
-    return _goTo<T>(context, const RegisterPage(), replace: replace);
+    return _goTo<T>(
+      context,
+      const RegisterPage(),
+      replace: replace,
+      clearStack: clearStack,
+    );
+  }
+
+  static Future<T?> goToOTPPage<T extends Object?>(BuildContext context) async {
+    return _goTo<T>(
+      context,
+      const OTPPage(),
+    );
+  }
+
+  static Future<T?> goToRoleSelectorPage<T extends Object?>(
+    BuildContext context, {
+    bool replace = true,
+  }) async {
+    return _goTo<T>(context, const RoleSelectorPage(), replace: replace);
+  }
+
+  static Future<T?> goToInputInformationPage<T extends Object?>(
+    BuildContext context, {
+    bool replace = true,
+  }) async {
+    return _goTo<T>(context, const InputInformationPage(), replace: replace);
   }
 }

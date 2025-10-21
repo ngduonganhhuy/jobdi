@@ -49,7 +49,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         curve: Curves.easeInOut,
       );
     } else {
-      await NavigatorService.goToLoginPage(context);
+      await NavigatorService.goToHomePage(context);
     }
   }
 
@@ -57,7 +57,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext context) {
     return AppSafeArea(
       top: false,
-
       color: Colors.transparent,
       child: Scaffold(
         backgroundColor: appScheme.white,

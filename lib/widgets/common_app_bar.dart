@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart' show AppBar, AppBarTheme, kToolbarHeight;
+import 'package:flutter/material.dart'
+    show AppBar, AppBarTheme, Colors, kToolbarHeight;
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'
+    show REdgeInsets, SizeExtension;
 import 'package:jobdi/core/services/navigation_service/navigator_service.dart'
     show NavigatorService;
 import 'package:jobdi/core/themes/app_colors.dart';
@@ -58,55 +61,35 @@ class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
     if (preferredSize is _PreferredAppBarSize &&
         preferredSize.toolbarHeight == null) {
       return (AppBarTheme.of(context).toolbarHeight ?? kToolbarHeight) +
-          (preferredSize.bottomHeight ?? 0);
+          (preferredSize.bottomHeight ?? 0) +
+          12.r;
     }
-    return preferredSize.height;
+    return preferredSize.height + 12;
   }
 }
 
-/// State for widget CommonAppBar.
 class _CommonAppBarState extends State<CommonAppBar> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(covariant CommonAppBar oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Widget configuration changed
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // The configuration of InheritedWidgets has changed
-    // Also called after initState but before build
-  }
-
-  @override
-  void dispose() {
-    // Permanent removal of a tree stent
-    super.dispose();
-  }
-  /* #endregion */
-
   @override
   Widget build(BuildContext context) => AppBar(
     elevation: widget.elevation ?? 0,
     leading: const SizedBox.shrink(),
     centerTitle: true,
+    backgroundColor: Colors.transparent,
+    surfaceTintColor: Colors.transparent,
+    foregroundColor: Colors.transparent,
     actions: widget.actions,
     flexibleSpace: Container(
-      color: appScheme.primaryColor,
-      height: kToolbarHeight  ,
+      padding: REdgeInsets.only(
+        top: MediaQuery.of(context).padding.top,
+      ),
+      height: double.infinity,
       child: Row(
         mainAxisAlignment: Navigator.canPop(context)
             ? MainAxisAlignment.start
             : MainAxisAlignment.center,
         children: [
           if (widget.isShowLeading)
-            Flexible(
+            Expanded(
               child: Visibility(
                 visible: Navigator.canPop(context),
                 child: ClickWidget(
@@ -133,7 +116,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
             ),
           ),
           if (widget.isShowLeading)
-            Flexible(
+            Expanded(
               child: Visibility(
                 visible: Navigator.canPop(context),
                 child: const SizedBox.shrink(),

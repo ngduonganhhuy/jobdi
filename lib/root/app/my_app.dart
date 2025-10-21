@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
               scaffoldMessengerKey: Injection.scaffoldMessengerKey,
               theme: ThemeData(
                 primaryColor: state.appColors?.primaryColor,
+
                 fontFamily: Constants.fontFamilyName,
                 checkboxTheme: CheckboxThemeData(
                   checkColor: WidgetStateProperty.all<Color>(

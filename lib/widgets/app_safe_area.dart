@@ -16,10 +16,12 @@ class AppSafeArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: color ?? appScheme.primaryColor,
+    return Container(
+      decoration: BoxDecoration(
+        color: color ?? appScheme.primaryColor,
+      ),
       child: SafeArea(
-        top: top ?? true,
+        top: top ?? false,
         bottom: bottom ?? false,
         child: child,
       ),

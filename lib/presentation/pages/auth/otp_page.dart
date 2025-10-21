@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, BlocListener;
 import 'package:flutter_screenutil/flutter_screenutil.dart'
     show RPadding, SizeExtension;
 import 'package:jobdi/core/impl/base_page.dart' show BasePage;
+import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
 import 'package:jobdi/core/themes/app_colors.dart' show appScheme;
 import 'package:jobdi/core/themes/app_image.dart' show PNGAsset;
 import 'package:jobdi/core/themes/app_text_styles.dart';
@@ -211,7 +212,11 @@ class _OTPPageState extends State<OTPPage> {
                     state.retryRemaining! > 0 ||
                     state.secondRemainingToWait! <= 0,
                 hapticFeedbackType: HapticFeedbackType.lightImpact,
-                onCompleted: (pin) {},
+                onCompleted: (pin) {
+                  if (pin == '000000') {
+                    NavigatorService.goToRoleSelectorPage(context);
+                  }
+                },
                 onChanged: (value) {
                   debugPrint('onChanged: $value');
                 },

@@ -23,6 +23,7 @@ class CustomTextField extends StatefulWidget {
     this.fillColor,
     this.inputBorder,
     this.hintStyle,
+    this.contentPadding,
   });
 
   final TextEditingController? controller;
@@ -39,6 +40,7 @@ class CustomTextField extends StatefulWidget {
   final Color? fillColor;
   final InputBorder? inputBorder;
   final TextStyle? hintStyle;
+  final EdgeInsetsGeometry? contentPadding;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -112,10 +114,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 color: appScheme.gray400,
                 fontSize: 14,
               ),
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 13,
-            horizontal: 12,
-          ),
+          contentPadding:
+              widget.contentPadding ??
+              const EdgeInsets.symmetric(
+                vertical: 13,
+                horizontal: 12,
+              ),
           enabledBorder:
               widget.inputBorder ??
               OutlineInputBorder(
