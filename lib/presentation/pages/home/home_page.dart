@@ -1,5 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jobdi/core/extensions/widget_extension.dart';
 import 'package:jobdi/core/impl/base_page.dart';
 import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
 import 'package:jobdi/core/themes/app_colors.dart';
@@ -8,6 +10,7 @@ import 'package:jobdi/core/themes/app_text_styles.dart';
 import 'package:jobdi/core_bloc/app/app_bloc.dart' show AppBloc;
 import 'package:jobdi/core_bloc/theme/theme_bloc.dart'
     show ThemeBloc, ToggleThemeEvent;
+import 'package:jobdi/domain/entities/category_entity.dart';
 import 'package:jobdi/domain/entities/role_entity.dart';
 import 'package:jobdi/injection_container.dart';
 import 'package:jobdi/widgets/app_safe_area.dart';
@@ -32,6 +35,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final _tabController = TabController(length: 2, vsync: this);
   late final AppBloc _appBloc = locator<AppBloc>();
   late final ThemeBloc _themeBloc = locator<ThemeBloc>();
+
   @override
   Widget build(BuildContext context) {
     return AppSafeArea(
@@ -208,6 +212,116 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
+                const Gap(25),
+                RPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: <Widget>[
+                      _buildHeader('Chương trình'),
+                      const Gap(4),
+                      _buildIconHot(),
+                    ],
+                  ),
+                ),
+                const Gap(13),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      ...[
+                        PNGAsset.img1,
+                        PNGAsset.img1,
+                        PNGAsset.img1,
+                      ].mapIndexed(
+                        (index, image) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(18),
+                            child: Image.asset(
+                              image,
+                              width: 180.w,
+                              height: 80.h,
+                              fit: BoxFit.cover,
+                            ),
+                          ).marginOnly(left: 16, right: index == 2 ? 16 : 0);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(24),
+                RPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildHeader('Tìm thợ'),
+                ),
+                RPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final itemWidth = (constraints.maxWidth - 14.r) / 2;
+                      return Wrap(
+                        runSpacing: 21.r,
+                        spacing: 14.r,
+                        children: [
+                          ...CategoryEntity.mockList.map((cate) {
+                            return SizedBox(
+                              width: itemWidth,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: const BoxDecoration(),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Image.asset(
+                                          cate.image,
+                                          width: 40.r,
+                                          height: 40.r,
+                                        ),
+                                        const Gap(8),
+                                        MediumText(
+                                          cate.title,
+                                          fontSize: 12,
+                                          color: appScheme.gray900,
+                                        ),
+                                        const Gap(2),
+                                        RegularText(
+                                          cate.description,
+                                          fontSize: 12,
+                                          color: appScheme.gray300,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: Row(
+                                      children: <Widget>[
+                                        AppSvgImage(
+                                          assetName: SVGAsset.icon_staff,
+                                          width: 16.r,
+                                          height: 16.r,
+                                        ),
+                                        const Gap(4),
+                                        MediumText(
+                                          '${cate.quantity} thợ',
+                                          fontSize: 10,
+                                          color: appScheme.gray700,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                        ],
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
             Positioned(
@@ -272,6 +386,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(String label) {
+    return MediumText(
+      label,
+      fontSize: 16,
+      color: appScheme.gray900,
+    );
+  }
+
+  Widget _buildIconHot() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+      decoration: BoxDecoration(
+        color: appScheme.red50,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: SemiBoldText(
+        'HOT 🔥',
+        fontSize: 12,
+        color: appScheme.red500,
       ),
     );
   }

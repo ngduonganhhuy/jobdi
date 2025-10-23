@@ -11,6 +11,9 @@ class PNGAsset {
   static const String client = '${folderName}client.png';
   static const String staff = '${folderName}staff.png';
   static const String user_placeholder = '${folderName}user_placeholder.png';
+  static const String img1 = '${folderName}img1.png';
+  static const String category1 = '${folderName}category1.png';
+  static const String category4 = '${folderName}category4.png';
 }
 
 class SVGAsset {
@@ -38,4 +41,9 @@ class SVGAsset {
       '${folderName}icon_chevron_right_fill.svg';
   static const String icon_plus = '${folderName}icon_plus.svg';
   static const String bag = '${folderName}bag.svg';
+  static const String icon_staff = '${folderName}icon_staff.svg';
+  static const String icon_home = '${folderName}icon_home.svg';
+  static const String icon_activity = '${folderName}icon_activity.svg';
+  static const String icon_calendar = '${folderName}icon_calendar.svg';
+  static const String icon_message = '${folderName}icon_message.svg';
 }

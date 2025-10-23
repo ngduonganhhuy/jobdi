@@ -8,6 +8,7 @@ import 'package:jobdi/presentation/pages/auth/register_page.dart';
 import 'package:jobdi/presentation/pages/auth/role_selector_page.dart'
     show RoleSelectorPage;
 import 'package:jobdi/presentation/pages/home/home_page.dart';
+import 'package:jobdi/presentation/pages/home/main_page.dart';
 
 class NavigatorService {
   static Future<T?> _goTo<T extends Object?>(
@@ -64,6 +65,12 @@ class NavigatorService {
         context,
       ).popUntil((route) => route.settings.name == untilScreenName);
     }
+  }
+
+  static Future<T?> goToMainPage<T extends Object?>(
+    BuildContext context,
+  ) async {
+    return _goTo<T>(context, const MainPage(), clearStack: true);
   }
 
   static Future<T?> goToHomePage<T extends Object?>(
