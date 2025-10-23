@@ -15,10 +15,8 @@ class ScreenChangeModel {
 class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
   static const UNDEFINED_SCREEN_NAME = 'undefined screenName';
 
-  final screenChangeStreamCtrl =
-      StreamController<ScreenChangeModel>.broadcast();
-  final homeTabChangeStreamCtrl =
-      StreamController<ScreenChangeModel>.broadcast();
+  final screenChangeStreamCtrl = StreamController<ScreenChangeModel>.broadcast();
+  final homeTabChangeStreamCtrl = StreamController<ScreenChangeModel>.broadcast();
   String currentScreen = UNDEFINED_SCREEN_NAME;
 
   @override
@@ -75,7 +73,7 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     if (route != null) {
       var screenName = route.settings.name ?? UNDEFINED_SCREEN_NAME;
       if (screenName == '/') {
-        screenName = ApiService.hasToken() ? 'HomePage' : 'LoginPage';
+        screenName = ApiService.hasToken ? 'HomePage' : 'LoginPage';
       }
       return screenName;
     } else {

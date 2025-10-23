@@ -5,6 +5,7 @@ import 'dart:async' show Timer;
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jobdi/core/impl/result_response.dart';
+import 'package:jobdi/core/services/api_service/api_service.dart';
 import 'package:jobdi/domain/entities/auth_entity.dart' show AuthEntity;
 import 'package:jobdi/domain/usecases/auth/login_use_case.dart';
 
@@ -105,6 +106,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
       if (response.status == ResultStatus.success && response.data != null) {
         final success = AuthState.success(authEntity: response.data);
+        ApiService.setToken(newToken: response.data!.accessToken);
         _lastNonNoticeState = success;
         emit(success);
       } else {

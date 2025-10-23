@@ -55,7 +55,7 @@ class ApiService {
     }
   }
 
-  static bool hasToken() {
+  static bool get  hasToken {
     return !Utils.isNullOrEmpty(token);
   }
 
@@ -148,7 +148,7 @@ class ApiService {
     switch (statusCode) {
       case ApiStatusCode.Unauthorized:
         _cancelToken.cancel();
-        if (hasToken()) {
+        if (hasToken) {
           await LogoutHelper.handleLogout();
         } else {
           throw UnAuthorizeException();
