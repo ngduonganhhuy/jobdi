@@ -14,6 +14,8 @@ class PNGAsset {
   static const String img1 = '${folderName}img1.png';
   static const String category1 = '${folderName}category1.png';
   static const String category4 = '${folderName}category4.png';
+  static const String activity1 = '${folderName}activity1.png';
+  static const String activity2 = '${folderName}activity2.png';
 }
 
 class SVGAsset {

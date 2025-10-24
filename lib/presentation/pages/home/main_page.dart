@@ -4,6 +4,7 @@ import 'package:jobdi/core/impl/base_page.dart' show BasePage;
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core/themes/app_text_styles.dart';
+import 'package:jobdi/presentation/pages/home/activity_page.dart';
 import 'package:jobdi/presentation/pages/home/home_page.dart';
 import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
 import 'package:jobdi/widgets/app_svg_images.dart';
@@ -47,7 +48,7 @@ class _MainPageState extends State<MainPage> {
 
   static const List<Widget> _pages = [
     HomePage(),
-    Center(child: Text('Hoạt động')),
+    ActivityPage(),
     Center(child: Text('Lịch làm')),
     Center(child: Text('Tin nhắn')),
   ];
@@ -100,7 +101,9 @@ class _MainPageState extends State<MainPage> {
             fontWeight: FontWeight.w500,
           ),
           onTap: _onItemTapped,
-          items: _navigationItems.map((item) => item.toNavigationBarItem()).toList(),
+          items: _navigationItems
+              .map((item) => item.toNavigationBarItem())
+              .toList(),
         ),
       ],
     );

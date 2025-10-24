@@ -8,9 +8,11 @@ import 'package:permission_handler/permission_handler.dart';
 
 class PermissionHelper {
   static const requestPhotoPermissionMessage =
-      'LendMe cần bạn cấp quyền truy cập vào Thư Viện để tiếp tục';
+      'Jobdi cần bạn cấp quyền truy cập vào Thư Viện để tiếp tục';
   static const requestCameraPermissionMessage =
-      'LendMe cần bạn cấp quyền truy cập Máy Ảnh để tiếp tục';
+      'Jobdi cần bạn cấp quyền truy cập Máy Ảnh để tiếp tục';
+  static const requestLocationPermissionMessage =
+      'Jobdi cần bạn cấp quyền truy cập Vị Trí để tiếp tục';
 
   static Future<void> handleNotHavePermission({
     required PermissionStatus permissionStatus,
@@ -48,5 +50,13 @@ class PermissionHelper {
         message: requestPhotoPermissionMessage,
       );
     }
+  }
+
+  static Future<void> retryLocationPermission() async {
+    final status = await Permission.location.request();
+    await handleNotHavePermission(
+      permissionStatus: status,
+      message: requestLocationPermissionMessage,
+    );
   }
 }

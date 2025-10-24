@@ -5,4 +5,7 @@ class Env {
   static String get baseUrl => const bool.hasEnvironment('BASE_URL')
       ? const String.fromEnvironment('BASE_URL')
       : '';
+  static String get mapboxToken => const bool.hasEnvironment('MAPBOX_TOKEN')
+      ? const String.fromEnvironment('MAPBOX_TOKEN')
+      : '';
 }

@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jobdi/core/utils/injection.dart';
-import 'package:jobdi/core/utils/storage_util.dart' show StorageKey, StorageUtil;
+import 'package:jobdi/core/utils/storage_util.dart'
+    show StorageKey, StorageUtil;
 import 'package:jobdi/domain/entities/role_entity.dart' show RoleEntity;
 import 'package:jobdi/root/app/root.dart';
 
