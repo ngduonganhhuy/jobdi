@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jobdi/core/env/env.dart';
 import 'package:jobdi/core/impl/base_page.dart';
 import 'package:jobdi/core/services/api_service/api_service.dart';
-import 'package:jobdi/core/services/navigation_service/navigator_service.dart'
-    show NavigatorService;
+import 'package:jobdi/core/services/navigation_service/navigator_service.dart' show NavigatorService;
 import 'package:jobdi/core/themes/app_colors.dart';
-import 'package:jobdi/core/utils/location_util.dart';
 import 'package:jobdi/core_bloc/app/app_bloc.dart' show AppBloc;
-import 'package:jobdi/core_bloc/theme/theme_bloc.dart'
-    show ThemeBloc, ToggleThemeEvent;
+import 'package:jobdi/core_bloc/theme/theme_bloc.dart' show ThemeBloc, ToggleThemeEvent;
 import 'package:jobdi/domain/entities/role_entity.dart';
 import 'package:jobdi/injection_container.dart';
-import 'package:jobdi/presentation/pages/home/client_home_page.dart'
-    show ClientHomePage;
+import 'package:jobdi/presentation/pages/home/client_home_page.dart' show ClientHomePage;
+import 'package:jobdi/presentation/pages/home/staff_home_page.dart' show StaffHomePage;
 import 'package:jobdi/widgets/app_safe_area.dart';
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/click_widget.dart';
 import 'package:jobdi/widgets/gap.dart';
 import 'package:jobdi/widgets/primary_button.dart' show PrimaryButton;
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 class HomePage extends StatefulWidget implements BasePage {
   const HomePage({super.key});
@@ -75,9 +70,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               child: Container(
                                 height: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: isSelected
-                                      ? appScheme.primaryColor200
-                                      : Colors.transparent,
+                                  color: isSelected ? appScheme.primaryColor200 : Colors.transparent,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Row(
@@ -104,10 +97,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-                if (_appBloc.role == RoleEntity.client)
-                  const ClientHomePage()
-                else
-                  const StaffHomePage(),
+                if (_appBloc.role == RoleEntity.client) const ClientHomePage() else const StaffHomePage(),
               ],
             ),
             if (ApiService.hasToken)
@@ -173,50 +163,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class StaffHomePage extends StatefulWidget {
-  const StaffHomePage({super.key});
-
-  @override
-  State<StaffHomePage> createState() => _StaffHomePageState();
-}
-
-class _StaffHomePageState extends State<StaffHomePage> {
-  MapboxMap? mapboxMap;
-
-  @override
-  void initState() {
-    MapboxOptions.setAccessToken(Env.mapboxToken);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: StreamBuilder(
-        stream: LocationUtil.getPositionStream(),
-        builder: (context, asyncSnapshot) {
-          return MapWidget(
-            key: const ValueKey('mapWidget'),
-            onMapCreated: (controller) {
-              mapboxMap = controller;
-            },
-            cameraOptions: CameraOptions(
-              center: Point(
-                coordinates: Position(
-                  asyncSnapshot.data?.latitude ?? 0,
-                  asyncSnapshot.data?.longitude ?? 0,
-                ),
-              ),
-              zoom: 12,
-            ),
-            mapOptions: MapOptions(pixelRatio: 1),
-          );
-        },
       ),
     );
   }
