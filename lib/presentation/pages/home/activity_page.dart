@@ -14,8 +14,7 @@ class ActivityPage extends StatefulWidget implements BasePage {
   String get screenName => 'ActivityPage';
 }
 
-class _ActivityPageState extends State<ActivityPage>
-    with TickerProviderStateMixin {
+class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMixin {
   late final _tabbarController = TabController(length: 4, vsync: this);
 
   @override
@@ -24,6 +23,8 @@ class _ActivityPageState extends State<ActivityPage>
       child: Scaffold(
         backgroundColor: appScheme.white,
         appBar: AppBar(
+          elevation: 0,
+          backgroundColor: appScheme.white,
           title: SemiBoldText(
             'Hoạt động',
             color: appScheme.black,

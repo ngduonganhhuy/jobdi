@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/impl/base_page.dart';
 import 'package:jobdi/core/services/api_service/api_service.dart';
 import 'package:jobdi/core/services/navigation_service/navigator_service.dart' show NavigatorService;
 import 'package:jobdi/core/themes/app_colors.dart';
-import 'package:jobdi/core_bloc/app/app_bloc.dart' show AppBloc;
+import 'package:jobdi/core_bloc/app/app_bloc.dart' show AppBloc, AppState;
 import 'package:jobdi/core_bloc/theme/theme_bloc.dart' show ThemeBloc, ToggleThemeEvent;
 import 'package:jobdi/domain/entities/role_entity.dart';
 import 'package:jobdi/injection_container.dart';
@@ -50,51 +51,55 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     color: appScheme.primaryColor50,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: TabBar(
-                    indicator: const BoxDecoration(),
-                    controller: _tabController,
-                    labelPadding: EdgeInsets.zero,
-                    dividerHeight: 0,
-                    tabs: [
-                      ...RoleEntity.values.map(
-                        (role) {
-                          final isSelected = _appBloc.role == role;
-                          return Tab(
-                            child: ClickWidget(
-                              onTap: () {
-                                _appBloc.setRole(role);
-                                _themeBloc.add(
-                                  ToggleThemeEvent(theme: role.theme),
-                                );
-                              },
-                              child: Container(
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: isSelected ? appScheme.primaryColor200 : Colors.transparent,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Image.asset(
-                                      role.image,
-                                      width: 24.r,
-                                      height: 24.r,
+                  child: BlocBuilder<AppBloc, AppState>(
+                    builder: (context, state) {
+                      return TabBar(
+                        indicator: const BoxDecoration(),
+                        controller: _tabController,
+                        labelPadding: EdgeInsets.zero,
+                        dividerHeight: 0,
+                        tabs: [
+                          ...RoleEntity.values.map(
+                            (role) {
+                              final isSelected = _appBloc.role == role;
+                              return Tab(
+                                child: ClickWidget(
+                                  onTap: () {
+                                    _appBloc.setRole(role);
+                                    _themeBloc.add(
+                                      ToggleThemeEvent(theme: role.theme),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: isSelected ? appScheme.primaryColor200 : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                    const Gap(4),
-                                    RegularText(
-                                      role.name,
-                                      fontSize: 12,
-                                      color: appScheme.gray900,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Image.asset(
+                                          role.image,
+                                          width: 24.r,
+                                          height: 24.r,
+                                        ),
+                                        const Gap(4),
+                                        RegularText(
+                                          role.name,
+                                          fontSize: 12,
+                                          color: appScheme.gray900,
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
                 if (_appBloc.role == RoleEntity.client) const ClientHomePage() else const StaffHomePage(),

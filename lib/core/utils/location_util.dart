@@ -20,13 +20,11 @@ class LocationUtil {
 
   static Stream<Position> getPositionStream() {
     PermissionHelper.retryLocationPermission();
-    final streamLocation = Geolocator.getPositionStream(
+    return Geolocator.getPositionStream(
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,
         distanceFilter: 10,
       ),
     );
-    print(streamLocation);
-    return streamLocation;
   }
 }
