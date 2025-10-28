@@ -22,6 +22,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Gap(12),
           RPadding(

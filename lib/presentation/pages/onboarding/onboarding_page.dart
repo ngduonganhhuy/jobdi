@@ -5,8 +5,10 @@ import 'package:jobdi/core/impl/base_page.dart' show BasePage;
 import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
 import 'package:jobdi/core/themes/app_colors.dart' show appScheme;
 import 'package:jobdi/core/themes/app_image.dart';
-import 'package:jobdi/domain/entities/onboarding_content.dart' show OnboardingContent;
-import 'package:jobdi/presentation/pages/onboarding/widgets/onboarding_next_button.dart' show OnboardingNextButton;
+import 'package:jobdi/domain/entities/onboarding_content.dart'
+    show OnboardingContent;
+import 'package:jobdi/presentation/pages/onboarding/widgets/onboarding_next_button.dart'
+    show OnboardingNextButton;
 import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/gap.dart';
@@ -75,7 +77,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: _pages.length,
-                  onPageChanged: (index) => setState(() => _currentIndex = index),
+                  onPageChanged: (index) =>
+                      setState(() => _currentIndex = index),
                   itemBuilder: (context, index) {
                     final page = _pages[index];
                     return Column(
@@ -102,7 +105,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
 
               _buildIndicator(),
-              const Gap(24),
+              Gap(24 + MediaQuery.of(context).padding.bottom),
             ],
           ),
         ),

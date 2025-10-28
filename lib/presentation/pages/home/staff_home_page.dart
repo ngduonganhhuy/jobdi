@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:jobdi/core/env/env.dart';
 import 'package:jobdi/core/utils/location_util.dart' show LocationUtil;
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart'
-    show CameraOptions, CircleAnnotation, CircleAnnotationManager, CircleAnnotationOptions, MapWidget, MapboxMap, MapboxOptions, Point, Position;
+    show
+        CameraOptions,
+        CircleAnnotation,
+        CircleAnnotationManager,
+        CircleAnnotationOptions,
+        MapWidget,
+        MapboxMap,
+        MapboxOptions,
+        Point,
+        Position;
 
 class StaffHomePage extends StatefulWidget {
   const StaffHomePage({super.key});
@@ -35,7 +44,10 @@ class _StaffHomePageState extends State<StaffHomePage> {
             _currentLongitude = pos.longitude;
 
             if (mapboxMap != null && _circleAnnotationManager != null) {
-              _updateUserAnnotationFromCoords(_currentLatitude!, _currentLongitude!);
+              _updateUserAnnotationFromCoords(
+                _currentLatitude!,
+                _currentLongitude!,
+              );
             }
           }
 
@@ -45,15 +57,23 @@ class _StaffHomePageState extends State<StaffHomePage> {
                 onMapCreated: (controller) async {
                   mapboxMap = controller;
                   try {
-                    _circleAnnotationManager = await mapboxMap!.annotations.createCircleAnnotationManager();
+                    _circleAnnotationManager = await mapboxMap!.annotations
+                        .createCircleAnnotationManager();
                     if (_currentLatitude != null && _currentLongitude != null) {
-                      _updateUserAnnotationFromCoords(_currentLatitude!, _currentLongitude!);
-
+                      _updateUserAnnotationFromCoords(
+                        _currentLatitude!,
+                        _currentLongitude!,
+                      );
                     }
                   } catch (e) {}
                 },
                 cameraOptions: CameraOptions(
-                  center: Point(coordinates: Position(_currentLongitude!, _currentLatitude!)),
+                  center: Point(
+                    coordinates: Position(
+                      _currentLongitude ?? 0,
+                      _currentLatitude ?? 0,
+                    ),
+                  ),
                   zoom: 15,
                 ),
               ),
@@ -64,10 +84,17 @@ class _StaffHomePageState extends State<StaffHomePage> {
                 child: FloatingActionButton(
                   backgroundColor: Colors.white,
                   onPressed: () async {
-                    if (_currentLatitude != null && _currentLongitude != null && mapboxMap != null) {
+                    if (_currentLatitude != null &&
+                        _currentLongitude != null &&
+                        mapboxMap != null) {
                       await mapboxMap!.setCamera(
                         CameraOptions(
-                          center: Point(coordinates: Position(_currentLongitude!, _currentLatitude!)),
+                          center: Point(
+                            coordinates: Position(
+                              _currentLongitude!,
+                              _currentLatitude!,
+                            ),
+                          ),
                           zoom: 15,
                         ),
                       );
