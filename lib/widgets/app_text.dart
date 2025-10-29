@@ -9,18 +9,21 @@ class MediumText extends StatelessWidget {
     this.fontSize,
     this.textAlign,
     this.maxLines,
+    this.overflow,
   });
   final String text;
   final Color? color;
   final double? fontSize;
   final TextAlign? textAlign;
   final int? maxLines;
+  final TextOverflow? overflow;
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: textAlign,
       maxLines: maxLines,
+      overflow: overflow,
       style: appFont.useFont(
         fontWeight: FontWeight.w500,
         color: color,
@@ -38,18 +41,21 @@ class RegularText extends StatelessWidget {
     this.fontSize,
     this.textAlign,
     this.maxLines,
+    this.overflow,
   });
   final String text;
   final Color? color;
   final double? fontSize;
   final TextAlign? textAlign;
   final int? maxLines;
+  final TextOverflow? overflow;
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       maxLines: maxLines,
       textAlign: textAlign,
+      overflow: overflow,
       style: appFont.useFont(
         fontWeight: FontWeight.w400,
         color: color,
@@ -67,22 +73,28 @@ class SemiBoldText extends StatelessWidget {
     this.fontSize,
     this.textAlign,
     this.maxLines,
+    this.overflow,
+    this.lineheight,
   });
   final String text;
   final Color? color;
   final double? fontSize;
   final TextAlign? textAlign;
   final int? maxLines;
+  final TextOverflow? overflow;
+  final double? lineheight;
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       maxLines: maxLines,
       textAlign: textAlign,
+      overflow: overflow,
       style: appFont.useFont(
         fontWeight: FontWeight.w600,
         color: color,
         fontSize: fontSize,
+        lineHeight: lineheight,
       ),
     );
   }
@@ -96,18 +108,21 @@ class BoldText extends StatelessWidget {
     this.fontSize,
     this.textAlign,
     this.maxLines,
+    this.overflow,
   });
   final String text;
   final Color? color;
   final double? fontSize;
   final TextAlign? textAlign;
   final int? maxLines;
+  final TextOverflow? overflow;
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       maxLines: maxLines,
       textAlign: textAlign,
+      overflow: overflow,
       style: appFont.useFont(
         fontWeight: FontWeight.bold,
         color: color,

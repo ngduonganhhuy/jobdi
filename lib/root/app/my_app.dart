@@ -11,6 +11,7 @@ import 'package:jobdi/injection_container.dart';
 import 'package:jobdi/l10n/app_localizations.dart' show AppLocalizations;
 import 'package:jobdi/presentation/pages/home/main_page.dart';
 import 'package:jobdi/presentation/pages/onboarding/onboarding_page.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -26,6 +27,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     _initFirstLaunch();
     _initRole();
+
+    timeago.setLocaleMessages('vi', timeago.ViMessages());
+    timeago.setDefaultLocale('vi');
     super.initState();
   }
 
@@ -55,8 +59,8 @@ class _MyAppState extends State<MyApp> {
               navigatorKey: Injection.navKey,
               scaffoldMessengerKey: Injection.scaffoldMessengerKey,
               theme: ThemeData(
+                splashFactory: NoSplash.splashFactory,
                 primaryColor: state.appColors?.primaryColor,
-
                 fontFamily: Constants.fontFamilyName,
                 checkboxTheme: CheckboxThemeData(
                   checkColor: WidgetStateProperty.all<Color>(

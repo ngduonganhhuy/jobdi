@@ -16,6 +16,7 @@ Future<void> mainDelegate() async {
       await StorageUtil.initPreferences();
       registerErrorHandlers();
       setupLocator();
+
       await bootstrap(() => const Root());
     },
     ErrorHandler.handleAsyncError,

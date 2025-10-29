@@ -1,4 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
+import 'package:jobdi/core/utils/utils.dart';
+import 'package:jobdi/widgets/app_text.dart';
 
 final class ActivityEntity {
   ActivityEntity({
@@ -44,6 +48,44 @@ final class ActivityEntity {
       staffName: 'John Nguyễn',
     ),
   ];
+
+  String get displayAmount =>
+      salary != null ? '+ ${Utils.formatNumber(salary!)}đ' : '+ 0';
 }
 
-enum ActivityStatus { coming, working, done }
+enum ActivityStatus {
+  coming,
+  working,
+  done;
+
+  String get label => switch (this) {
+    ActivityStatus.coming => 'Sắp tới',
+    ActivityStatus.working => 'Đang làm việc',
+    ActivityStatus.done => '',
+  };
+
+  Color get color => switch (this) {
+    ActivityStatus.coming => appScheme.blue600,
+    ActivityStatus.working => appScheme.orange600,
+    ActivityStatus.done => Colors.transparent,
+  };
+
+  Color get bgColor => switch (this) {
+    ActivityStatus.coming => appScheme.blue50,
+    ActivityStatus.working => appScheme.orange50,
+    ActivityStatus.done => Colors.transparent,
+  };
+
+  Widget get statusWidget => Container(
+    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+    decoration: BoxDecoration(
+      color: bgColor,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: MediumText(
+      label,
+      color: color,
+      fontSize: 12,
+    ),
+  );
+}

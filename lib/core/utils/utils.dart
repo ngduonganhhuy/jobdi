@@ -140,4 +140,9 @@ class Utils {
   static Future<XFile> compressXFile(XFile file) async {
     return file;
   }
+
+  static String formatNumber(num number) {
+    final formatter = NumberFormat('#,###');
+    return formatter.format(number);
+  }
 }

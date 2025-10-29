@@ -31,10 +31,18 @@ class AppColors {
     required this.gray700,
     required this.gray50,
     required this.gray800,
+    required this.blue600,
+    required this.orange50,
+    required this.orange600,
+    required this.blue50,
+    required this.green500,
+    required this.primaryColor100,
+    required this.orange500,
   });
 
   final Color primaryColor;
   final Color primaryColor50;
+  final Color primaryColor100;
   final Color primaryColor200;
   final Color primaryColor600;
   final Color white;
@@ -49,9 +57,15 @@ class AppColors {
   final Color gray25;
   final Color gray50;
   final Color blue500;
+  final Color blue50;
+  final Color blue600;
   final Color red300;
   final Color red50;
   final Color red500;
   final Color blue400;
   final Color gray700;
+  final Color orange50;
+  final Color orange600;
+  final Color orange500;
+  final Color green500;
 }
