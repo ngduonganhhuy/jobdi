@@ -9,6 +9,7 @@ import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
 import 'package:jobdi/widgets/app_svg_images.dart';
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/gap.dart';
+import 'package:timelines_plus/timelines_plus.dart';
 
 class ActivityDetailPage extends StatefulWidget implements BasePage {
   const ActivityDetailPage({super.key});
@@ -62,11 +63,13 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       child: Scaffold(
         backgroundColor: appScheme.white,
         body: ListView(
+          padding: const EdgeInsets.all(16),
           children: [
-            const Gap(20),
+            const Gap(4),
             Row(
               children: <Widget>[
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SemiBoldText(
                       mockActivityDetail.status.label,
@@ -74,8 +77,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                       fontSize: 16,
                     ),
                     const Gap(4),
-                    if (mockActivityDetail.status ==
-                        AcitivityDetailStatus.working)
+                    if (mockActivityDetail.status == AcitivityDetailStatus.working)
                       ValueListenableBuilder(
                         valueListenable: _elapsedNotifier,
                         builder: (context, value, child) {
@@ -88,6 +90,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                       ),
                   ],
                 ),
+                const Spacer(),
                 const Gap(12),
                 Container(
                   padding: const EdgeInsets.all(10),
@@ -102,6 +105,45 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                   ),
                 ),
               ],
+            ),
+            const Gap(24),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: FixedTimeline.tileBuilder(
+                builder: TimelineTileBuilder.connected(
+                  connectionDirection: ConnectionDirection.before,
+                  indicatorBuilder: (context, index) {
+                    final isCompleted = index <= 5;
+                    return DotIndicator(
+                      color: isCompleted ? Colors.green : Colors.grey,
+                      child: isCompleted ? const Icon(Icons.check, color: Colors.white, size: 12) : null,
+                    );
+                  },
+                  connectorBuilder: (context, index, type) {
+                    final isCompleted = index < 5;
+                    return SolidLineConnector(
+                      color: isCompleted ? Colors.green : Colors.grey.shade300,
+                    );
+                  },
+                  contentsBuilder: (context, index) {
+                    final itemStep = AcitivityDetailStatus.values[index];
+                    return Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: appScheme.green600,
+                        shape: BoxShape.circle,
+                      ),
+                      child: AppSvgImage(
+                        assetName: itemStep.iconTimeline,
+                        width: 16.r,
+                        height: 16.r,
+                        color: appScheme.white,
+                      ),
+                    );
+                  },
+                  itemCount: AcitivityDetailStatus.values.length,
+                ),
+              ),
             ),
           ],
         ),
