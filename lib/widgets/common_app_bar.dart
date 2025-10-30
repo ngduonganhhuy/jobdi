@@ -25,7 +25,7 @@ class _PreferredAppBarSize extends Size {
 class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// {@macro common_app_bar}
   CommonAppBar({
-    required this.title,
+    this.title,
     super.key,
     this.isShowLeading = true,
     this.bottom,
@@ -34,6 +34,7 @@ class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.resultBack,
     this.onBack,
     this.actions,
+    this.backIconColor,
   }) : assert(
          elevation == null || elevation >= 0.0,
          'Elevation must be != null and greater than 0',
@@ -48,11 +49,12 @@ class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double? elevation;
   final double? toolbarHeight;
   final PreferredSizeWidget? bottom;
-  final String title;
+  final String? title;
   final bool isShowLeading;
   final dynamic resultBack;
   final void Function()? onBack;
   final List<Widget>? actions;
+  final Color? backIconColor;
 
   @override
   State<CommonAppBar> createState() => _CommonAppBarState();
@@ -81,6 +83,8 @@ class _CommonAppBarState extends State<CommonAppBar> {
     flexibleSpace: Container(
       padding: REdgeInsets.only(
         top: MediaQuery.of(context).padding.top,
+        left: 16,
+        right: 16,
       ),
       height: double.infinity,
       child: Row(
@@ -89,7 +93,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
             : MainAxisAlignment.center,
         children: [
           if (widget.isShowLeading)
-            Expanded(
+            Flexible(
               child: Visibility(
                 visible: Navigator.canPop(context),
                 child: ClickWidget(
@@ -98,23 +102,24 @@ class _CommonAppBarState extends State<CommonAppBar> {
                       () => NavigatorService.goBack(context, widget.resultBack),
                   child: AppSvgImage(
                     assetName: SVGAsset.icon_arrow_left,
-                    color: appScheme.white,
+                    color: widget.backIconColor ?? appScheme.white,
                     width: 24,
                     height: 24,
                   ),
                 ),
               ),
             ),
-          Expanded(
-            flex: 4,
-            child: SemiBoldText(
-              widget.title,
-              textAlign: TextAlign.center,
-              fontSize: 18,
-              maxLines: 1,
-              color: appScheme.white,
+          if (widget.title != null)
+            Expanded(
+              flex: 4,
+              child: SemiBoldText(
+                widget.title!,
+                textAlign: TextAlign.center,
+                fontSize: 18,
+                maxLines: 1,
+                color: appScheme.white,
+              ),
             ),
-          ),
           if (widget.isShowLeading)
             Expanded(
               child: Visibility(

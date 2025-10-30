@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/widgets/app_text.dart';
@@ -8,11 +9,47 @@ class ActivityDetailEntity {
     required this.timeStarted,
     required this.work,
     required this.status,
+    required this.paymentGate,
+    required this.scheduleWork,
   });
 
   final int timeStarted;
   final WorkEntity work;
   final AcitivityDetailStatus status;
+  final PaymentGate paymentGate;
+  final ScheduleWork scheduleWork;
+}
+
+class ScheduleWork {
+  ScheduleWork({
+    required this.totalSessions,
+    required this.currentSession,
+    required this.totalSessionsDone,
+    required this.timeStarted,
+    required this.timeDuration,
+  });
+
+  final int totalSessions;
+  final int currentSession;
+  final int totalSessionsDone;
+  final int timeStarted;
+  final int timeDuration;
+
+  String get displayTimeStarted {
+    final format = DateFormat('EE, HH:mm');
+    return format.format(
+      DateTime.fromMillisecondsSinceEpoch(timeStarted),
+    );
+  }
+
+  String get displayTimeWorking {
+    final format = DateFormat('HH:mm');
+    final timeStart = DateTime.fromMillisecondsSinceEpoch(timeStarted);
+    final timeStartDisplay = format.format(timeStart);
+    final timeEnd = timeStart.add(Duration(hours: timeDuration));
+    final timeEndDisplay = format.format(timeEnd);
+    return '$timeStartDisplay - $timeEndDisplay';
+  }
 }
 
 class WorkEntity {
@@ -84,6 +121,16 @@ enum WorkingStatus {
   );
 }
 
+enum PaymentGate {
+  credit,
+  cash;
+
+  String get label => switch (this) {
+    PaymentGate.credit => 'Thẻ tín dụng',
+    PaymentGate.cash => 'Tiền mặt',
+  };
+}
+
 enum AcitivityDetailStatus {
   started,
   negotiate,
@@ -109,7 +156,8 @@ enum AcitivityDetailStatus {
 
   String get desc => switch (this) {
     AcitivityDetailStatus.started => 'Đã bắt đầu',
-    AcitivityDetailStatus.negotiate => 'Thợ sẽ kiểm tra trình trạng và báo giá cuối cùng',
+    AcitivityDetailStatus.negotiate =>
+      'Thợ sẽ kiểm tra trình trạng và báo giá cuối cùng',
     AcitivityDetailStatus.coming => 'Đang tới',
     AcitivityDetailStatus.working => 'Đang làm việc',
     AcitivityDetailStatus.done => 'Đã hoàn thành',
@@ -125,6 +173,14 @@ enum AcitivityDetailStatus {
 }
 
 final mockActivityDetail = ActivityDetailEntity(
+  scheduleWork: ScheduleWork(
+    totalSessions: 10,
+    currentSession: 4,
+    totalSessionsDone: 3,
+    timeStarted: 1761817588,
+    timeDuration: 2,
+  ),
+  paymentGate: PaymentGate.cash,
   timeStarted: 1761727531,
   status: AcitivityDetailStatus.working,
   work: WorkEntity(

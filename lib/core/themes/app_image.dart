@@ -29,15 +29,19 @@ class SVGAsset {
   static const String vietnam = '${folderName}vietnam.svg';
   static const String error = '${folderName}error.svg';
   static const String notification = '${folderName}notification.svg';
-  static const String icon_arrow_left_long = '${folderName}icon_arrow_left_long.svg';
-  static const String icon_arrow_right_long = '${folderName}icon_arrow_right_long.svg';
+  static const String icon_arrow_left_long =
+      '${folderName}icon_arrow_left_long.svg';
+  static const String icon_arrow_right_long =
+      '${folderName}icon_arrow_right_long.svg';
   static const String icon_reload = '${folderName}icon_reload.svg';
   static const String icon_lib = '${folderName}icon_lib.svg';
   static const String icon_camera = '${folderName}icon_camera.svg';
   static const String icon_chevron_down = '${folderName}icon_chevron_down.svg';
   static const String icon_upload = '${folderName}icon_upload.svg';
-  static const String icon_search_outline = '${folderName}icon_search_outline.svg';
-  static const String icon_chevron_right_fill = '${folderName}icon_chevron_right_fill.svg';
+  static const String icon_search_outline =
+      '${folderName}icon_search_outline.svg';
+  static const String icon_chevron_right_fill =
+      '${folderName}icon_chevron_right_fill.svg';
   static const String icon_plus = '${folderName}icon_plus.svg';
   static const String bag = '${folderName}bag.svg';
   static const String icon_staff = '${folderName}icon_staff.svg';
@@ -46,10 +50,14 @@ class SVGAsset {
   static const String icon_calendar = '${folderName}icon_calendar.svg';
   static const String icon_message = '${folderName}icon_message.svg';
   static const String icon_home_active = '${folderName}icon_home_active.svg';
-  static const String icon_activity_active = '${folderName}icon_activity_active.svg';
-  static const String icon_calendar_active = '${folderName}icon_calendar_active.svg';
-  static const String icon_message_active = '${folderName}icon_message_active.svg';
-  static const String icon_chevron_right = '${folderName}icon_chevron_right.svg';
+  static const String icon_activity_active =
+      '${folderName}icon_activity_active.svg';
+  static const String icon_calendar_active =
+      '${folderName}icon_calendar_active.svg';
+  static const String icon_message_active =
+      '${folderName}icon_message_active.svg';
+  static const String icon_chevron_right =
+      '${folderName}icon_chevron_right.svg';
   static const String icon_arrow_right = '${folderName}icon_arrow_right.svg';
   static const String icon_shutdown = '${folderName}icon_shutdown.svg';
   static const String icon_pause = '${folderName}icon_pause.svg';
@@ -62,4 +70,20 @@ class SVGAsset {
   static const String icon_coming = '${folderName}icon_coming.svg';
   static const String icon_check = '${folderName}icon_check.svg';
   static const String icon_settings = '${folderName}icon_settings.svg';
+  static const String icon_wallet_staff = '${folderName}icon_wallet_staff.svg';
+  static const String icon_user_square_staff =
+      '${folderName}icon_user_square_staff.svg';
+  static const String icon_first_price_staff =
+      '${folderName}icon_first_price_staff.svg';
+  static const String icon_location_staff =
+      '${folderName}icon_location_staff.svg';
+  static const String icon_money_send = '${folderName}icon_money_send.svg';
+  static const String icon_phone_outline =
+      '${folderName}icon_phone_outline.svg';
+  static const String icon_message_outline =
+      '${folderName}icon_message_outline.svg';
+  static const String icon_headphone_outline =
+      '${folderName}icon_headphone_outline.svg';
+  static const String icon_edit_calendar =
+      '${folderName}icon_edit_calendar.svg';
 }
