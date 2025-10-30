@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:jobdi/core/impl/base_page.dart';
 import 'package:jobdi/core/utils/utils.dart';
+import 'package:jobdi/presentation/pages/activity/activity_detail_page.dart' show ActivityDetailPage;
 import 'package:jobdi/presentation/pages/auth/input_information_page.dart';
 import 'package:jobdi/presentation/pages/auth/login_page.dart';
 import 'package:jobdi/presentation/pages/auth/otp_page.dart';
 import 'package:jobdi/presentation/pages/auth/register_page.dart';
-import 'package:jobdi/presentation/pages/auth/role_selector_page.dart'
-    show RoleSelectorPage;
+import 'package:jobdi/presentation/pages/auth/role_selector_page.dart' show RoleSelectorPage;
 import 'package:jobdi/presentation/pages/home/home_page.dart';
 import 'package:jobdi/presentation/pages/home/main_page.dart';
 
@@ -124,5 +124,9 @@ class NavigatorService {
     bool replace = true,
   }) async {
     return _goTo<T>(context, const InputInformationPage(), replace: replace);
+  }
+
+  static Future<T?> goToActivityDetailPage<T extends Object?>(BuildContext context) async {
+    return _goTo<T>(context, const ActivityDetailPage());
   }
 }

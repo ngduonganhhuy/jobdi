@@ -107,18 +107,26 @@ enum AcitivityDetailStatus {
     AcitivityDetailStatus.done => 'Đã hoàn thành',
   };
 
-   String get desc => switch (this) {
+  String get desc => switch (this) {
     AcitivityDetailStatus.started => 'Đã bắt đầu',
     AcitivityDetailStatus.negotiate => 'Thợ sẽ kiểm tra trình trạng và báo giá cuối cùng',
     AcitivityDetailStatus.coming => 'Đang tới',
     AcitivityDetailStatus.working => 'Đang làm việc',
     AcitivityDetailStatus.done => 'Đã hoàn thành',
   };
+
+  String get iconTimeline => switch (this) {
+    AcitivityDetailStatus.started => SVGAsset.icon_bag,
+    AcitivityDetailStatus.negotiate => SVGAsset.icon_money_bag,
+    AcitivityDetailStatus.coming => SVGAsset.icon_coming,
+    AcitivityDetailStatus.working => SVGAsset.icon_settings,
+    AcitivityDetailStatus.done => SVGAsset.icon_check,
+  };
 }
 
 final mockActivityDetail = ActivityDetailEntity(
   timeStarted: 1761727531,
-  status: AcitivityDetailStatus.negotiate,
+  status: AcitivityDetailStatus.working,
   work: WorkEntity(
     id: '1423',
     title: 'Sửa máy lạnh',

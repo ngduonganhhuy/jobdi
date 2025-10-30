@@ -10,10 +10,11 @@ import 'package:jobdi/root/app/root.dart';
 import 'package:jobdi/root/bootstrap.dart';
 
 Future<void> mainDelegate() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await runZonedGuarded<Future<void>>(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await StorageUtil.initPreferences();
+    await  StorageUtil.initPreferences();
       registerErrorHandlers();
       setupLocator();
 

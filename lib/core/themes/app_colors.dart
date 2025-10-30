@@ -38,6 +38,7 @@ class AppColors {
     required this.green500,
     required this.primaryColor100,
     required this.orange500,
+    required this.green600,
   });
 
   final Color primaryColor;
@@ -68,4 +69,5 @@ class AppColors {
   final Color orange600;
   final Color orange500;
   final Color green500;
+  final Color green600;
 }

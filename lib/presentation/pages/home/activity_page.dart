@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/impl/base_page.dart';
+import 'package:jobdi/core/services/navigation_service/navigator_service.dart';
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core/themes/app_text_styles.dart';
@@ -8,6 +9,7 @@ import 'package:jobdi/domain/entities/activity_entity.dart';
 import 'package:jobdi/widgets/app_safe_area.dart';
 import 'package:jobdi/widgets/app_svg_images.dart';
 import 'package:jobdi/widgets/app_text.dart';
+import 'package:jobdi/widgets/click_widget.dart' show ClickWidget;
 import 'package:jobdi/widgets/gap.dart';
 import 'package:jobdi/widgets/listview_with_no_data.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -22,8 +24,7 @@ class ActivityPage extends StatefulWidget implements BasePage {
   String get screenName => 'ActivityPage';
 }
 
-class _ActivityPageState extends State<ActivityPage>
-    with TickerProviderStateMixin {
+class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMixin {
   late final _tabbarController = TabController(length: 4, vsync: this);
 
   @override
@@ -118,110 +119,115 @@ class ItemActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDone = item.status == ActivityStatus.done;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Row(
-            children: <Widget>[
-              Image.asset(
-                item.image,
-                width: 28.r,
-                height: 28.r,
-              ),
-              const Gap(18),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SemiBoldText(
-                      item.title,
-                      color: appScheme.gray900,
-                      fontSize: 14,
-                    ),
-                    RegularText(
-                      item.address,
-                      color: appScheme.gray500,
-                      fontSize: 12,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              const Gap(16),
-              if (isDone)
-                MediumText(
-                  item.displayAmount,
-                  color: appScheme.green500,
-                  fontSize: 14,
-                )
-              else
-                AppSvgImage(
-                  assetName: SVGAsset.icon_chevron_right,
-                  width: 24.r,
-                  height: 24.r,
-                ),
-            ],
-          ),
-          const Gap(12),
-          Row(
-            children: <Widget>[
-              Opacity(
-                opacity: 0,
-                child: Image.asset(
+    return ClickWidget(
+      onTap: () {
+        NavigatorService.goToActivityDetailPage(context);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Row(
+              children: <Widget>[
+                Image.asset(
                   item.image,
                   width: 28.r,
                   height: 28.r,
                 ),
-              ),
-              const Gap(18),
-              if (isDone)
+                const Gap(18),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      RegularText(
-                        item.staffName,
-                        color: appScheme.gray700,
+                      SemiBoldText(
+                        item.title,
+                        color: appScheme.gray900,
                         fontSize: 14,
                       ),
-                      const Gap(4),
-                      Row(
-                        children: <Widget>[
-                          SemiBoldText(
-                            'Đánh giá',
-                            fontSize: 12,
-                            color: appScheme.blue500,
-                          ),
-                          const Gap(4),
-                          AppSvgImage(
-                            assetName: SVGAsset.icon_arrow_right,
-                            width: 16.r,
-                            height: 16.r,
-                            color: appScheme.blue500,
-                          ),
-                          const Spacer(),
-                          if (item.timeFinished != null)
-                            RegularText(
-                              timeago.format(
-                                DateTime.fromMillisecondsSinceEpoch(
-                                  item.timeFinished!,
-                                ),
-                              ),
-                              color: appScheme.gray400,
-                              fontSize: 12,
-                            ),
-                        ],
+                      RegularText(
+                        item.address,
+                        color: appScheme.gray500,
+                        fontSize: 12,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
-                )
-              else
-                item.status.statusWidget,
-            ],
-          ),
-        ],
+                ),
+                const Gap(16),
+                if (isDone)
+                  MediumText(
+                    item.displayAmount,
+                    color: appScheme.green500,
+                    fontSize: 14,
+                  )
+                else
+                  AppSvgImage(
+                    assetName: SVGAsset.icon_chevron_right,
+                    width: 24.r,
+                    height: 24.r,
+                  ),
+              ],
+            ),
+            const Gap(12),
+            Row(
+              children: <Widget>[
+                Opacity(
+                  opacity: 0,
+                  child: Image.asset(
+                    item.image,
+                    width: 28.r,
+                    height: 28.r,
+                  ),
+                ),
+                const Gap(18),
+                if (isDone)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RegularText(
+                          item.staffName,
+                          color: appScheme.gray700,
+                          fontSize: 14,
+                        ),
+                        const Gap(4),
+                        Row(
+                          children: <Widget>[
+                            SemiBoldText(
+                              'Đánh giá',
+                              fontSize: 12,
+                              color: appScheme.blue500,
+                            ),
+                            const Gap(4),
+                            AppSvgImage(
+                              assetName: SVGAsset.icon_arrow_right,
+                              width: 16.r,
+                              height: 16.r,
+                              color: appScheme.blue500,
+                            ),
+                            const Spacer(),
+                            if (item.timeFinished != null)
+                              RegularText(
+                                timeago.format(
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                    item.timeFinished!,
+                                  ),
+                                ),
+                                color: appScheme.gray400,
+                                fontSize: 12,
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  item.status.statusWidget,
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
