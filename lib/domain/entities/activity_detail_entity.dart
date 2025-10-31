@@ -18,6 +18,8 @@ class ActivityDetailEntity {
   final AcitivityDetailStatus status;
   final PaymentGate paymentGate;
   final ScheduleWork scheduleWork;
+
+  String get title => work.title;
 }
 
 class ScheduleWork {
@@ -156,8 +158,7 @@ enum AcitivityDetailStatus {
 
   String get desc => switch (this) {
     AcitivityDetailStatus.started => 'Đã bắt đầu',
-    AcitivityDetailStatus.negotiate =>
-      'Thợ sẽ kiểm tra trình trạng và báo giá cuối cùng',
+    AcitivityDetailStatus.negotiate => 'Thợ sẽ kiểm tra trình trạng và báo giá cuối cùng',
     AcitivityDetailStatus.coming => 'Đang tới',
     AcitivityDetailStatus.working => 'Đang làm việc',
     AcitivityDetailStatus.done => 'Đã hoàn thành',
