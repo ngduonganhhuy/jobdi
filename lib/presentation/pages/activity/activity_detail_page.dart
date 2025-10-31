@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:jobdi/core/impl/base_page.dart' show BasePage;
 import 'package:jobdi/core/themes/app_colors.dart';
+import 'package:jobdi/presentation/pages/activity/widgets/activity_detail_realtime_job.dart';
 import 'package:jobdi/presentation/pages/activity/widgets/activity_detail_scheduled_job.dart';
 import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
 import 'package:jobdi/widgets/common_app_bar.dart';
 
 class ActivityDetailPage extends StatefulWidget implements BasePage {
-  const ActivityDetailPage({super.key});
-
+  const ActivityDetailPage({required this.isRealtime, super.key});
+  final bool isRealtime;
   @override
   State<ActivityDetailPage> createState() => _ActivityDetailPageState();
 
@@ -27,7 +28,9 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           backIconColor: appScheme.black,
         ),
         backgroundColor: appScheme.white,
-        body: const ActivityDetailScheduledJob(),
+        body: widget.isRealtime
+            ? const ActivityDetailRealTimeJob()
+            : const ActivityDetailScheduledJob(),
       ),
     );
   }

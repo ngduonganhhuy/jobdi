@@ -5,5 +5,5 @@ import 'package:jobdi/main.dart';
 Future<void> main() async {
   AppConstants.setEnvironment(Environment.PRODUCT);
   await dotenv.load();
-  await mainDelegate();
+  mainDelegate();
 }

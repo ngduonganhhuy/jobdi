@@ -24,7 +24,8 @@ class ActivityPage extends StatefulWidget implements BasePage {
   String get screenName => 'ActivityPage';
 }
 
-class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMixin {
+class _ActivityPageState extends State<ActivityPage>
+    with TickerProviderStateMixin {
   late final _tabbarController = TabController(length: 4, vsync: this);
 
   @override
@@ -121,7 +122,7 @@ class ItemActivity extends StatelessWidget {
     final isDone = item.status == ActivityStatus.done;
     return ClickWidget(
       onTap: () {
-        NavigatorService.goToActivityDetailPage(context);
+        NavigatorService.goToActivityDetailPage(context, isRealtime: isDone);
       },
       child: Container(
         padding: const EdgeInsets.all(16),

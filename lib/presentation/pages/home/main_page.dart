@@ -5,6 +5,7 @@ import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core/themes/app_image.dart';
 import 'package:jobdi/core/themes/app_text_styles.dart';
 import 'package:jobdi/presentation/pages/home/activity_page.dart';
+import 'package:jobdi/presentation/pages/home/conversations_page.dart';
 import 'package:jobdi/presentation/pages/home/home_page.dart';
 import 'package:jobdi/widgets/app_safe_area.dart' show AppSafeArea;
 import 'package:jobdi/widgets/app_svg_images.dart';
@@ -50,7 +51,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     ActivityPage(),
     Center(child: Text('Lịch làm')),
-    Center(child: Text('Tin nhắn')),
+    ConversationsPage(),
   ];
 
   void _onItemTapped(int index) {

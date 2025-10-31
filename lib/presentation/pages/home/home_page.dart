@@ -3,14 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobdi/core/impl/base_page.dart';
 import 'package:jobdi/core/services/api_service/api_service.dart';
-import 'package:jobdi/core/services/navigation_service/navigator_service.dart' show NavigatorService;
+import 'package:jobdi/core/services/navigation_service/navigator_service.dart'
+    show NavigatorService;
 import 'package:jobdi/core/themes/app_colors.dart';
 import 'package:jobdi/core_bloc/app/app_bloc.dart' show AppBloc, AppState;
-import 'package:jobdi/core_bloc/theme/theme_bloc.dart' show ThemeBloc, ToggleThemeEvent;
+import 'package:jobdi/core_bloc/theme/theme_bloc.dart'
+    show ThemeBloc, ToggleThemeEvent;
 import 'package:jobdi/domain/entities/role_entity.dart';
 import 'package:jobdi/injection_container.dart';
-import 'package:jobdi/presentation/pages/home/client_home_page.dart' show ClientHomePage;
-import 'package:jobdi/presentation/pages/home/staff_home_page.dart' show StaffHomePage;
+import 'package:jobdi/presentation/pages/home/client_home_page.dart'
+    show ClientHomePage;
+import 'package:jobdi/presentation/pages/home/staff_home_page.dart'
+    show StaffHomePage;
 import 'package:jobdi/widgets/app_safe_area.dart';
 import 'package:jobdi/widgets/app_text.dart';
 import 'package:jobdi/widgets/click_widget.dart';
@@ -73,11 +77,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   child: Container(
                                     height: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: isSelected ? appScheme.primaryColor200 : Colors.transparent,
+                                      color: isSelected
+                                          ? appScheme.primaryColor200
+                                          : Colors.transparent,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Image.asset(
                                           role.image,
@@ -102,7 +109,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     },
                   ),
                 ),
-                if (_appBloc.role == RoleEntity.client) const ClientHomePage() else const StaffHomePage(),
+                BlocBuilder<AppBloc, AppState>(
+                  builder: (context, state) {
+                    if (_appBloc.isClient) return const ClientHomePage();
+                    return const StaffHomePage();
+                  },
+                ),
               ],
             ),
             if (ApiService.hasToken)

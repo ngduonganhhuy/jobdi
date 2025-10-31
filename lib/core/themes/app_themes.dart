@@ -47,6 +47,7 @@ final Map<AppTheme, AppColors> appColorsData = {
     yellow500: const Color(0xFFEFC51D),
     yellow50: const Color(0xFFFFFAE9),
     green100: const Color(0xFFCFF7D9),
+    green50: const Color(0xFFEAFCEF),
   ),
   AppTheme.Green: AppColors(
     primaryColor: Colors.greenAccent,
@@ -81,5 +82,6 @@ final Map<AppTheme, AppColors> appColorsData = {
     yellow500: const Color(0xFFEFC51D),
     yellow50: const Color(0xFFFFFAE9),
     green100: const Color(0xFFCFF7D9),
+    green50: const Color(0xFFEAFCEF),
   ),
 };

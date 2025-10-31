@@ -7,12 +7,14 @@ import 'package:jobdi/core/utils/map_launcher.dart';
 import 'package:jobdi/core/utils/url_utils.dart';
 import 'package:jobdi/core/utils/utils.dart';
 import 'package:jobdi/core_bloc/app/app_bloc.dart' show AppBloc;
-import 'package:jobdi/domain/entities/activity_detail_entity.dart' show mockActivityDetail;
+import 'package:jobdi/domain/entities/activity_detail_entity.dart'
+    show mockActivityDetail;
 import 'package:jobdi/injection_container.dart';
 import 'package:jobdi/presentation/pages/activity/widgets/activity_schedule_box.dart';
 import 'package:jobdi/presentation/pages/activity/widgets/stat_work_item.dart';
 import 'package:jobdi/widgets/app_svg_images.dart';
-import 'package:jobdi/widgets/app_text.dart' show MediumText, RegularText, SemiBoldText;
+import 'package:jobdi/widgets/app_text.dart'
+    show MediumText, RegularText, SemiBoldText;
 import 'package:jobdi/widgets/click_widget.dart';
 import 'package:jobdi/widgets/gap.dart' show Gap;
 
@@ -20,10 +22,12 @@ class ActivityDetailScheduledJob extends StatefulWidget {
   const ActivityDetailScheduledJob({super.key});
 
   @override
-  State<ActivityDetailScheduledJob> createState() => _ActivityDetailScheduledJobState();
+  State<ActivityDetailScheduledJob> createState() =>
+      _ActivityDetailScheduledJobState();
 }
 
-class _ActivityDetailScheduledJobState extends State<ActivityDetailScheduledJob> {
+class _ActivityDetailScheduledJobState
+    extends State<ActivityDetailScheduledJob> {
   late final AppBloc _appBloc = locator<AppBloc>();
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,7 @@ class _ActivityDetailScheduledJobState extends State<ActivityDetailScheduledJob>
                     fontSize: 18,
                   ),
                   const Gap(10),
-                  mockActivityDetail.work.status.statusWidget,
+                  mockActivityDetail.work.jobStatus.statusWidget,
                 ],
               ),
               const Gap(4),
@@ -60,12 +64,16 @@ class _ActivityDetailScheduledJobState extends State<ActivityDetailScheduledJob>
               StatWorkItem(
                 label: 'Địa chỉ sửa',
                 value: mockActivityDetail.work.address,
-                icon: _appBloc.isClient ? SVGAsset.icon_location_client : SVGAsset.icon_location_staff,
+                icon: _appBloc.isClient
+                    ? SVGAsset.icon_location_client
+                    : SVGAsset.icon_location_staff,
                 children: [
                   if (!_appBloc.isClient)
                     ClickWidget(
                       onTap: () {
-                        MapsLauncher.launchQuery(mockActivityDetail.work.address);
+                        MapsLauncher.launchQuery(
+                          mockActivityDetail.work.address,
+                        );
                       },
                       child: MediumText(
                         'Bản đồ',
@@ -79,13 +87,17 @@ class _ActivityDetailScheduledJobState extends State<ActivityDetailScheduledJob>
               StatWorkItem(
                 label: _appBloc.isClient ? 'Thợ thực hiện' : 'Khách hàng',
                 value: mockActivityDetail.work.staff.name,
-                icon: _appBloc.isClient ? SVGAsset.icon_user_square_client : SVGAsset.icon_user_square_staff,
+                icon: _appBloc.isClient
+                    ? SVGAsset.icon_user_square_client
+                    : SVGAsset.icon_user_square_staff,
                 children: [
                   if (!_appBloc.isClient) ...[
                     _IconStat(
                       icon: SVGAsset.icon_phone_outline,
                       onTap: () {
-                        UrlUtils.makePhoneCall(mockActivityDetail.work.staff.phone);
+                        UrlUtils.makePhoneCall(
+                          mockActivityDetail.work.staff.phone,
+                        );
                       },
                     ),
                     const Gap(12),
@@ -100,7 +112,8 @@ class _ActivityDetailScheduledJobState extends State<ActivityDetailScheduledJob>
                 const Gap(20),
                 StatWorkItem(
                   label: 'Giá đã chốt',
-                  value: '${Utils.formatNumber(mockActivityDetail.work.lastPrice)} / 1 buổi',
+                  value:
+                      '${Utils.formatNumber(mockActivityDetail.work.lastPrice)} / 1 buổi',
                   icon: SVGAsset.icon_first_price_client,
                 ),
               ],
@@ -154,8 +167,12 @@ class _ActivityDetailScheduledJobState extends State<ActivityDetailScheduledJob>
                   ...List.generate(
                     mockActivityDetail.scheduleWork.totalSessions,
                     (index) {
-                      final isCurrent = index == mockActivityDetail.scheduleWork.currentSession;
-                      final isDone = index <= mockActivityDetail.scheduleWork.totalSessionsDone;
+                      final isCurrent =
+                          index ==
+                          mockActivityDetail.scheduleWork.currentSession;
+                      final isDone =
+                          index <=
+                          mockActivityDetail.scheduleWork.totalSessionsDone;
                       return Container(
                         decoration: BoxDecoration(
                           color: isCurrent ? appScheme.white : appScheme.gray25,
@@ -186,7 +203,13 @@ class _ActivityDetailScheduledJobState extends State<ActivityDetailScheduledJob>
                                 height: 20.r,
                               ),
                             const Gap(10),
-                            MediumText('Buổi ${index + 1}', fontSize: 12, color: isDone ? appScheme.gray300 : appScheme.gray900),
+                            MediumText(
+                              'Buổi ${index + 1}',
+                              fontSize: 12,
+                              color: isDone
+                                  ? appScheme.gray300
+                                  : appScheme.gray900,
+                            ),
                             const Gap(10),
                           ],
                         ),

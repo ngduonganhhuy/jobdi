@@ -21,14 +21,16 @@ class ActivityTimelineWidget extends StatelessWidget {
             nodePositionBuilder: (context, index) => 0,
             indicatorPositionBuilder: (context, index) => 0,
             contentsBuilder: (context, index) {
-              final itemStep = AcitivityDetailStatus.values[index];
-              final itemShowLineProgress = AcitivityDetailStatus.values.length - 2;
+              final itemStep = WorkingStatus.values[index];
+              final itemShowLineProgress = WorkingStatus.values.length - 2;
               return Row(
                 children: [
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: index == itemShowLineProgress + 1 ? appScheme.gray200 : appScheme.green600,
+                      color: index == itemShowLineProgress + 1
+                          ? appScheme.gray200
+                          : appScheme.green600,
                       shape: BoxShape.circle,
                     ),
                     child: AppSvgImage(
@@ -58,7 +60,7 @@ class ActivityTimelineWidget extends StatelessWidget {
                 ],
               );
             },
-            itemCount: AcitivityDetailStatus.values.length,
+            itemCount: WorkingStatus.values.length,
           ),
         ),
       ),

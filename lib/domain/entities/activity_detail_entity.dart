@@ -8,14 +8,13 @@ class ActivityDetailEntity {
   ActivityDetailEntity({
     required this.timeStarted,
     required this.work,
-    required this.status,
     required this.paymentGate,
     required this.scheduleWork,
   });
 
   final int timeStarted;
   final WorkEntity work;
-  final AcitivityDetailStatus status;
+
   final PaymentGate paymentGate;
   final ScheduleWork scheduleWork;
 
@@ -59,7 +58,7 @@ class WorkEntity {
     required this.id,
     required this.title,
     required this.address,
-    required this.status,
+    required this.jobStatus,
     required this.staff,
     required this.firstPrice,
     required this.lastPrice,
@@ -68,7 +67,7 @@ class WorkEntity {
   final String id;
   final String title;
   final String address;
-  final WorkingStatus status;
+  final JobStatus jobStatus;
   final StaffEntity staff;
   final num firstPrice;
   final num lastPrice;
@@ -81,6 +80,7 @@ class StaffEntity {
     required this.works,
     required this.rating,
     required this.phone,
+    required this.workingStatus,
   });
 
   final String name;
@@ -88,25 +88,26 @@ class StaffEntity {
   final List<String> works;
   final double rating;
   final int phone;
+  final WorkingStatus workingStatus;
 }
 
-enum WorkingStatus {
+enum JobStatus {
   realtime,
   scheduled;
 
   String get label => switch (this) {
-    WorkingStatus.realtime => 'Việc tức thì',
-    WorkingStatus.scheduled => 'Việc định kì',
+    JobStatus.realtime => 'Việc tức thì',
+    JobStatus.scheduled => 'Việc định kì',
   };
 
   Color get color => switch (this) {
-    WorkingStatus.realtime => appScheme.orange600,
-    WorkingStatus.scheduled => appScheme.blue600,
+    JobStatus.realtime => appScheme.orange600,
+    JobStatus.scheduled => appScheme.blue600,
   };
 
   Color get bgColor => switch (this) {
-    WorkingStatus.realtime => appScheme.orange50,
-    WorkingStatus.scheduled => appScheme.blue50,
+    JobStatus.realtime => appScheme.orange50,
+    JobStatus.scheduled => appScheme.blue50,
   };
 
   Widget get statusWidget => Container(
@@ -133,7 +134,7 @@ enum PaymentGate {
   };
 }
 
-enum AcitivityDetailStatus {
+enum WorkingStatus {
   started,
   negotiate,
   coming,
@@ -141,35 +142,44 @@ enum AcitivityDetailStatus {
   done;
 
   String get label => switch (this) {
-    AcitivityDetailStatus.started => 'Đã bắt đầu',
-    AcitivityDetailStatus.negotiate => 'Đang thương lượng',
-    AcitivityDetailStatus.coming => 'Đang tới',
-    AcitivityDetailStatus.working => 'Đang làm việc',
-    AcitivityDetailStatus.done => 'Đã hoàn thành',
+    WorkingStatus.started => 'Đã bắt đầu',
+    WorkingStatus.negotiate => 'Đang thương lượng',
+    WorkingStatus.coming => 'Đang tới',
+    WorkingStatus.working => 'Đang làm việc',
+    WorkingStatus.done => 'Đã hoàn thành',
+  };
+
+  Color get color => switch (this) {
+    WorkingStatus.started => appScheme.orange500,
+    WorkingStatus.negotiate => appScheme.orange500,
+    WorkingStatus.coming => appScheme.orange500,
+    WorkingStatus.working => appScheme.orange500,
+    WorkingStatus.done => appScheme.orange500,
   };
 
   String get icon => switch (this) {
-    AcitivityDetailStatus.started => SVGAsset.icon_box_search,
-    AcitivityDetailStatus.negotiate => SVGAsset.icon_negotiate,
-    AcitivityDetailStatus.coming => 'Đang tới',
-    AcitivityDetailStatus.working => SVGAsset.icon_working,
-    AcitivityDetailStatus.done => 'Đã hoàn thành',
+    WorkingStatus.started => SVGAsset.icon_box_search,
+    WorkingStatus.negotiate => SVGAsset.icon_negotiate,
+    WorkingStatus.coming => 'Đang tới',
+    WorkingStatus.working => SVGAsset.icon_working,
+    WorkingStatus.done => 'Đã hoàn thành',
   };
 
   String get desc => switch (this) {
-    AcitivityDetailStatus.started => 'Đã bắt đầu',
-    AcitivityDetailStatus.negotiate => 'Thợ sẽ kiểm tra trình trạng và báo giá cuối cùng',
-    AcitivityDetailStatus.coming => 'Đang tới',
-    AcitivityDetailStatus.working => 'Đang làm việc',
-    AcitivityDetailStatus.done => 'Đã hoàn thành',
+    WorkingStatus.started => 'Đã bắt đầu',
+    WorkingStatus.negotiate =>
+      'Thợ sẽ kiểm tra trình trạng và báo giá cuối cùng',
+    WorkingStatus.coming => 'Đang tới',
+    WorkingStatus.working => 'Đang làm việc',
+    WorkingStatus.done => 'Đã hoàn thành',
   };
 
   String get iconTimeline => switch (this) {
-    AcitivityDetailStatus.started => SVGAsset.icon_bag,
-    AcitivityDetailStatus.negotiate => SVGAsset.icon_money_bag,
-    AcitivityDetailStatus.coming => SVGAsset.icon_coming,
-    AcitivityDetailStatus.working => SVGAsset.icon_settings,
-    AcitivityDetailStatus.done => SVGAsset.icon_check,
+    WorkingStatus.started => SVGAsset.icon_bag,
+    WorkingStatus.negotiate => SVGAsset.icon_money_bag,
+    WorkingStatus.coming => SVGAsset.icon_coming,
+    WorkingStatus.working => SVGAsset.icon_settings,
+    WorkingStatus.done => SVGAsset.icon_check,
   };
 }
 
@@ -183,13 +193,13 @@ final mockActivityDetail = ActivityDetailEntity(
   ),
   paymentGate: PaymentGate.cash,
   timeStarted: 1761727531,
-  status: AcitivityDetailStatus.working,
   work: WorkEntity(
     id: '1423',
     title: 'Sửa máy lạnh',
     address: '128 Điện Biên Phủ, Thạnh Mỹ Tây, Hồ Chí Minh',
-    status: WorkingStatus.realtime,
+    jobStatus: JobStatus.realtime,
     staff: StaffEntity(
+      workingStatus: WorkingStatus.working,
       name: 'Nguyễn Anh Nam',
       image:
           'https://media.istockphoto.com/id/2162033406/photo/group-business-meeting-at-bright-beige-office.jpg?s=612x612&w=0&k=20&c=aM9Hqey73JHSz49nrMztNHtvp1BRm2AowEhz6R2jkOs=',

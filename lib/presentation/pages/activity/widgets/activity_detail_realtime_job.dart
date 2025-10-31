@@ -16,14 +16,16 @@ import 'package:jobdi/presentation/pages/activity/widgets/staff_info_section.dar
 import 'package:jobdi/presentation/pages/activity/widgets/stat_work_item.dart';
 import 'package:jobdi/presentation/pages/activity/widgets/timeline_widget.dart';
 import 'package:jobdi/widgets/app_svg_images.dart';
-import 'package:jobdi/widgets/app_text.dart' show MediumText, RegularText, SemiBoldText;
+import 'package:jobdi/widgets/app_text.dart'
+    show MediumText, RegularText, SemiBoldText;
 import 'package:jobdi/widgets/gap.dart';
 
 class ActivityDetailRealTimeJob extends StatefulWidget {
   const ActivityDetailRealTimeJob({super.key});
 
   @override
-  State<ActivityDetailRealTimeJob> createState() => _ActivityDetailRealTimeJobState();
+  State<ActivityDetailRealTimeJob> createState() =>
+      _ActivityDetailRealTimeJobState();
 }
 
 class _ActivityDetailRealTimeJobState extends State<ActivityDetailRealTimeJob> {
@@ -66,12 +68,13 @@ class _ActivityDetailRealTimeJobState extends State<ActivityDetailRealTimeJob> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SemiBoldText(
-                      mockActivityDetail.status.label,
+                      mockActivityDetail.work.jobStatus.label,
                       color: appScheme.gray900,
                       fontSize: 16,
                     ),
                     const Gap(4),
-                    if (mockActivityDetail.status == AcitivityDetailStatus.working)
+                    if (mockActivityDetail.work.staff.workingStatus ==
+                        WorkingStatus.working)
                       ValueListenableBuilder(
                         valueListenable: _elapsedNotifier,
                         builder: (context, value, child) {
@@ -93,7 +96,7 @@ class _ActivityDetailRealTimeJobState extends State<ActivityDetailRealTimeJob> {
                     shape: BoxShape.circle,
                   ),
                   child: AppSvgImage(
-                    assetName: mockActivityDetail.status.icon,
+                    assetName: mockActivityDetail.work.staff.workingStatus.icon,
                     width: 40.r,
                     height: 40.r,
                   ),
@@ -111,7 +114,7 @@ class _ActivityDetailRealTimeJobState extends State<ActivityDetailRealTimeJob> {
                   fontSize: 18,
                 ),
                 const Gap(10),
-                mockActivityDetail.work.status.statusWidget,
+                mockActivityDetail.work.jobStatus.statusWidget,
               ],
             ),
             const Gap(4),
@@ -123,22 +126,31 @@ class _ActivityDetailRealTimeJobState extends State<ActivityDetailRealTimeJob> {
             StatWorkItem(
               label: 'Địa chỉ sửa',
               value: mockActivityDetail.work.address,
-              icon: _appBloc.isClient ? SVGAsset.icon_location_client : SVGAsset.icon_location_staff,
+              icon: _appBloc.isClient
+                  ? SVGAsset.icon_location_client
+                  : SVGAsset.icon_location_staff,
             ),
             StatWorkItem(
               label: 'Thợ thực hiện',
               value: mockActivityDetail.work.staff.name,
-              icon: _appBloc.isClient ? SVGAsset.icon_user_square_client : SVGAsset.icon_user_square_staff,
+              icon: _appBloc.isClient
+                  ? SVGAsset.icon_user_square_client
+                  : SVGAsset.icon_user_square_staff,
             ),
             StatWorkItem(
               label: 'Phương thức thanh toán',
               value: mockActivityDetail.paymentGate.label,
-              icon: _appBloc.isClient ? SVGAsset.icon_wallet_client : SVGAsset.icon_wallet_staff,
+              icon: _appBloc.isClient
+                  ? SVGAsset.icon_wallet_client
+                  : SVGAsset.icon_wallet_staff,
             ),
             StatWorkItem(
               label: 'Giá ban đầu',
-              value: '${Utils.formatNumber(mockActivityDetail.work.firstPrice)}đ',
-              icon: _appBloc.isClient ? SVGAsset.icon_first_price_client : SVGAsset.icon_first_price_staff,
+              value:
+                  '${Utils.formatNumber(mockActivityDetail.work.firstPrice)}đ',
+              icon: _appBloc.isClient
+                  ? SVGAsset.icon_first_price_client
+                  : SVGAsset.icon_first_price_staff,
             ),
             Container(
               padding: const EdgeInsets.all(10),
